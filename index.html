@@ -6,9 +6,10 @@
 
   <title>DevMatryca</title>
 
+  <!-- Windows 7 UI framework -->
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/7.css@0.21.1/dist/7.css"
+    href="https://unpkg.com/7.css"
   >
 
   <style>
@@ -24,184 +25,149 @@
 
     body {
       min-height: 100vh;
-      padding: 20px;
+      font-family: "Segoe UI", Tahoma, sans-serif;
 
-      font-family:
-        "Segoe UI",
-        Tahoma,
-        sans-serif;
-
+      /* Windows 7-ish desktop */
       background:
         linear-gradient(
-          135deg,
-          #1769aa,
-          #65b5e8,
-          #1769aa
+          rgba(20, 60, 105, 0.12),
+          rgba(0, 0, 0, 0.08)
+        ),
+        url("https://i.imgur.com/5KQ7K6M.jpg");
+
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      padding: 35px;
+    }
+
+    /* Dark translucent desktop overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(255,255,255,.10),
+          transparent 45%
         );
 
-      background-attachment: fixed;
+      z-index: -1;
     }
 
-    button,
-    a {
-      font-family: inherit;
-    }
-
-    .page {
+    .desktop {
       width: 100%;
-      max-width: 1100px;
-      margin: auto;
+      min-height: calc(100vh - 70px);
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding-top: 20px;
     }
 
+    /* Main DevMatryca window */
     .main-window {
-      width: 100%;
+      width: min(950px, 100%);
     }
 
-    /* PROFILE */
+    .window-body {
+      overflow: hidden;
+    }
 
-    .profile {
+    .hero {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 25px;
 
-      padding: 20px;
+      padding: 22px;
+
+      min-height: 190px;
     }
 
     .avatar {
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
 
-      flex-shrink: 0;
+      border-radius: 50%;
 
       object-fit: cover;
 
-      border-radius: 50%;
       border: 3px solid white;
 
       box-shadow:
-        0 2px 8px rgba(0, 0, 0, .45);
+        0 2px 7px rgba(0,0,0,.45);
     }
 
-    .profile-info h1 {
-      margin: 0 0 5px;
+    .hero-text h1 {
+      margin: 0 0 7px;
 
-      font-size: 32px;
+      font-size: 34px;
+      font-weight: 600;
+
+      color: #222;
     }
 
-    .profile-info p {
-      margin: 0 0 14px;
+    .hero-text p {
+      margin: 0 0 18px;
 
       color: #444;
+      font-size: 15px;
     }
 
-    .roblox-link {
+    /* Roblox button */
+    .roblox-button {
       display: inline-flex;
 
       align-items: center;
-      gap: 7px;
+      gap: 8px;
 
       text-decoration: none;
+
+      color: #111;
     }
 
     .roblox-logo {
       width: 18px;
       height: 18px;
+
+      object-fit: contain;
     }
 
+    /* Separator */
     .separator {
       height: 1px;
 
-      margin: 3px 15px 18px;
+      margin: 5px 15px 15px;
 
-      background: #aaa;
-      border-bottom: 1px solid white;
+      background: #c7c7c7;
+
+      border-top: 1px solid white;
     }
-
-    /* SECTIONS */
 
     .section {
       padding: 0 15px 20px;
     }
 
     .section-title {
-      margin-bottom: 12px;
-
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
+
+      margin: 10px 0 12px;
     }
 
-    /* GAMES */
-
-    .game-launchers {
+    /* Fanart */
+    .fanart-grid {
       display: grid;
 
       grid-template-columns:
         repeat(
           auto-fit,
-          minmax(240px, 1fr)
-        );
-
-      gap: 12px;
-    }
-
-    .game-launcher {
-      display: flex;
-
-      align-items: center;
-
-      gap: 12px;
-
-      width: 100%;
-      min-height: 78px;
-
-      padding: 8px;
-
-      text-align: left;
-
-      cursor: pointer;
-    }
-
-    .game-launcher-icon {
-      width: 58px;
-      height: 58px;
-
-      flex-shrink: 0;
-
-      object-fit: cover;
-
-      border-radius: 8px;
-
-      border: 1px solid #777;
-
-      background: #eee;
-    }
-
-    .launcher-title {
-      display: block;
-
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .launcher-description {
-      display: block;
-
-      margin-top: 4px;
-
-      font-size: 12px;
-
-      color: #555;
-    }
-
-    /* GALLERY */
-
-    .gallery {
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          auto-fill,
-          minmax(180px, 1fr)
+          minmax(190px, 1fr)
         );
 
       gap: 12px;
@@ -209,27 +175,35 @@
       align-items: start;
     }
 
-    .gallery-item {
-      margin: 0;
+    .fanart {
+      position: relative;
 
       padding: 4px;
 
-      background: #f5f5f5;
+      cursor: pointer;
+
+      background: #f3f3f3;
 
       border: 1px solid #999;
 
-      box-shadow:
-        0 1px 4px rgba(0, 0, 0, .3);
+      border-radius: 2px;
 
-      cursor: pointer;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,.3);
+
+      transition:
+        transform .12s ease,
+        box-shadow .12s ease;
     }
 
-    .gallery-item:hover {
+    .fanart:hover {
+      transform: translateY(-2px);
+
       box-shadow:
-        0 3px 9px rgba(0, 0, 0, .45);
+        0 4px 9px rgba(0,0,0,.35);
     }
 
-    .gallery-item img {
+    .fanart img {
       display: block;
 
       width: 100%;
@@ -238,49 +212,57 @@
       border: 1px solid #aaa;
     }
 
-    .gallery-caption {
-      padding: 5px 4px 3px;
+    .fanart-label {
+      position: absolute;
 
-      font-size: 12px;
+      left: 7px;
+      bottom: 7px;
 
-      text-align: center;
+      padding: 2px 6px;
 
-      color: #444;
+      color: white;
+
+      font-size: 11px;
+
+      background: rgba(0,0,0,.65);
+
+      border-radius: 2px;
     }
 
-    .gallery-message {
-      grid-column: 1 / -1;
-
-      padding: 20px;
+    /* Empty fanart message */
+    .empty {
+      padding: 25px;
 
       text-align: center;
 
       color: #555;
 
-      border: 1px dashed #999;
+      border: 1px dashed #aaa;
 
-      background: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.5);
     }
 
-    /* THANK YOU */
-
-    .thanks-box {
-      padding: 14px;
-
-      border: 1px solid #aaa;
+    /* Thanks */
+    .thanks {
+      padding: 15px;
 
       background:
         linear-gradient(
           #fff,
-          #eee
+          #f0f0f0
         );
+
+      border: 1px solid #aaa;
+
+      box-shadow:
+        inset 0 1px white;
     }
 
-    .thanks-box p {
+    .thanks p {
       margin-top: 0;
     }
 
-    .thanks-list {
+    .names {
       display: flex;
 
       flex-wrap: wrap;
@@ -288,10 +270,12 @@
       gap: 7px;
     }
 
-    .thanks-name {
+    .name {
       padding: 5px 9px;
 
       border: 1px solid #aaa;
+
+      border-radius: 2px;
 
       background:
         linear-gradient(
@@ -305,20 +289,19 @@
       font-size: 13px;
     }
 
+    /* Footer */
     .footer {
-      padding: 10px;
-
       text-align: center;
 
-      color: #555;
+      color: #444;
+
+      padding: 10px;
 
       font-size: 12px;
     }
 
-    /* OVERLAYS */
-
-    .game-overlay,
-    .viewer-overlay {
+    /* Fanart popup */
+    .viewer {
       position: fixed;
 
       inset: 0;
@@ -328,97 +311,23 @@
       align-items: center;
       justify-content: center;
 
-      padding: 12px;
-
       background:
-        rgba(0, 0, 0, .45);
+        rgba(0, 0, 0, .42);
 
       z-index: 1000;
     }
 
-    .game-overlay.open,
-    .viewer-overlay.open {
+    .viewer.active {
       display: flex;
     }
-
-    .game-window {
-      width: min(820px, 96vw);
-
-      max-height: 95vh;
-
-      overflow: hidden;
-    }
-
-    .game-window-body {
-      display: flex;
-
-      flex-direction: column;
-
-      align-items: center;
-
-      padding: 10px;
-    }
-
-    .score-bar {
-      width: 100%;
-      max-width: 700px;
-
-      display: flex;
-
-      justify-content: space-between;
-
-      margin-bottom: 8px;
-      padding: 6px 10px;
-
-      background: white;
-
-      border: 1px solid #999;
-    }
-
-    .game-canvas {
-      display: block;
-
-      width: 100%;
-      max-width: 700px;
-
-      height: auto;
-
-      border: 2px solid #555;
-
-      background: white;
-
-      touch-action: none;
-    }
-
-    .game-buttons {
-      display: flex;
-
-      gap: 7px;
-
-      margin-top: 9px;
-    }
-
-    .game-help {
-      margin-top: 7px;
-
-      font-size: 12px;
-
-      color: #555;
-
-      text-align: center;
-    }
-
-    /* VIEWER */
 
     .viewer-window {
-      width: min(1000px, 96vw);
-
-      max-height: 95vh;
+      width: min(1000px, 94vw);
+      max-height: 92vh;
     }
 
-    .viewer-body {
+    .viewer-content {
       display: flex;
-
       justify-content: center;
 
       padding: 10px;
@@ -428,9 +337,7 @@
       overflow: auto;
     }
 
-    .viewer-body img {
-      display: block;
-
+    .viewer-content img {
       max-width: 100%;
       max-height: 78vh;
 
@@ -438,30 +345,40 @@
       height: auto;
 
       object-fit: contain;
+
+      border: 1px solid #888;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,.35);
     }
 
+    /* Responsive */
     @media (max-width: 600px) {
-
       body {
-        padding: 6px;
+        padding: 10px;
       }
 
-      .profile {
+      .desktop {
+        min-height: calc(100vh - 20px);
+      }
+
+      .hero {
         flex-direction: column;
 
         text-align: center;
       }
 
-      .profile-info h1 {
-        font-size: 27px;
+      .hero-text h1 {
+        font-size: 28px;
       }
 
-      .gallery {
-        grid-template-columns:
-          repeat(
-            auto-fill,
-            minmax(140px, 1fr)
-          );
+      .avatar {
+        width: 110px;
+        height: 110px;
+      }
+
+      .fanart-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -469,1676 +386,409 @@
 
 <body>
 
-<div class="page">
+  <div class="desktop">
 
-  <!-- MAIN WINDOW -->
+    <!-- Main application window -->
+    <div class="window active main-window">
 
-  <div class="window active main-window">
+      <div class="title-bar">
+        <div class="title-bar-text">
+          DevMatryca
+        </div>
 
-    <div class="title-bar">
-
-      <div class="title-bar-text">
-        DevMatryca
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
       </div>
 
-      <div class="title-bar-controls">
+      <div class="window-body has-space">
 
-        <button
-          type="button"
-          aria-label="Minimize"
-        ></button>
+        <!-- Profile -->
+        <section class="hero">
 
-        <button
-          type="button"
-          aria-label="Maximize"
-        ></button>
+          <img
+            src="avatar.png"
+            alt="DevMatryca avatar"
+            class="avatar"
+          >
 
-        <button
-          type="button"
-          aria-label="Close"
-        ></button>
+          <div class="hero-text">
+
+            <h1>DevMatryca</h1>
+
+            <p>
+              Developer, creator and fanart enjoyer.
+            </p>
+
+            <a
+              class="button roblox-button"
+              href="https://www.roblox.com/users/4963370209/profile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="roblox-logo"
+                src="https://api.iconify.design/simple-icons:roblox.svg"
+                alt=""
+              >
+
+              Roblox
+            </a>
+
+          </div>
+
+        </section>
+
+        <div class="separator"></div>
+
+        <!-- Fanarts -->
+        <section class="section">
+
+          <div class="section-title">
+            Fanarts
+          </div>
+
+          <div
+            id="fanart-grid"
+            class="fanart-grid"
+          ></div>
+
+        </section>
+
+        <div class="separator"></div>
+
+        <!-- Thanks -->
+        <section class="section">
+
+          <div class="section-title">
+            Thank you to
+          </div>
+
+          <div class="thanks">
+
+            <p>
+              Thanks to everyone who helped, inspired,
+              or contributed to DevMatryca.
+            </p>
+
+            <div class="names">
+
+              <span class="name">Siri</span>
+              <span class="name">Moony</span>
+              <span class="name">T420User</span>
+              <span class="name">artlurg431</span>
+              <span class="name">Vadimmka</span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <div class="footer">
+          © <span id="year"></span> DevMatryca
+        </div>
 
       </div>
-
     </div>
 
+  </div>
 
-    <div class="window-body">
 
-      <!-- PROFILE -->
+  <!-- Fanart viewer -->
+  <div
+    id="viewer"
+    class="viewer"
+  >
 
-      <div class="profile">
+    <div
+      class="window active viewer-window"
+    >
+
+      <div class="title-bar">
+
+        <div
+          id="viewer-title"
+          class="title-bar-text"
+        >
+          Fanart
+        </div>
+
+        <div class="title-bar-controls">
+
+          <button
+            aria-label="Close"
+            id="viewer-close"
+          ></button>
+
+        </div>
+
+      </div>
+
+      <div class="window-body viewer-content">
 
         <img
-          src="avatar.png"
-          class="avatar"
-          alt="DevMatryca"
+          id="viewer-image"
+          src=""
+          alt=""
         >
-
-        <div class="profile-info">
-
-          <h1>
-            DevMatryca
-          </h1>
-
-          <p>
-            Developer, creator and gamer.
-          </p>
-
-          <a
-            class="button roblox-link"
-            href="https://www.roblox.com/users/4963370209/profile"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-
-            <img
-              class="roblox-logo"
-              src="https://api.iconify.design/simple-icons:roblox.svg"
-              alt=""
-            >
-
-            Roblox
-
-          </a>
-
-        </div>
 
       </div>
 
+    </div>
 
-      <div class="separator"></div>
-
-
-      <!-- GAMES -->
-
-      <section class="section">
-
-        <div class="section-title">
-          Games
-        </div>
-
-        <div class="game-launchers">
-
-          <button
-            class="button game-launcher"
-            id="flappyButton"
-            type="button"
-          >
-
-            <img
-              src="flappydev.png"
-              class="game-launcher-icon"
-              alt="FlappyDev"
-            >
-
-            <span>
-
-              <span class="launcher-title">
-                FlappyDev
-              </span>
-
-              <span class="launcher-description">
-                Flappy Bird with DevMatryca.
-              </span>
-
-            </span>
-
-          </button>
+  </div>
 
 
-          <button
-            class="button game-launcher"
-            id="snakeButton"
-            type="button"
-          >
+  <script>
 
-            <img
-              src="flappydev.png"
-              class="game-launcher-icon"
-              alt="DevSnake"
-            >
+    /*
+     * -----------------------------------------
+     * FANART AUTO DISCOVERY
+     * -----------------------------------------
+     *
+     * Automatically loads:
+     *
+     * fanart1.png
+     * fanart2.png
+     * fanart3.png
+     * ...
+     *
+     * No need to edit the HTML when adding art.
+     */
 
-            <span>
+    const grid =
+      document.getElementById("fanart-grid");
 
-              <span class="launcher-title">
-                DevSnake
-              </span>
+    const MAX_FANARTS = 100;
 
-              <span class="launcher-description">
-                Eat apples and grow.
-              </span>
-
-            </span>
-
-          </button>
-
-        </div>
-
-      </section>
+    let found = 0;
 
 
-      <div class="separator"></div>
+    function createFanart(number) {
+
+      return new Promise(resolve => {
+
+        const src =
+          `fanart${number}.png`;
+
+        const test =
+          new Image();
+
+        test.onload = () => {
+
+          const card =
+            document.createElement("div");
+
+          card.className =
+            "fanart";
+
+          const img =
+            document.createElement("img");
+
+          img.src = src;
+
+          img.alt =
+            `Fanart ${number}`;
+
+          img.loading =
+            "lazy";
 
 
-      <!-- FANARTS -->
+          const label =
+            document.createElement("span");
 
-      <section class="section">
+          label.className =
+            "fanart-label";
 
-        <div class="section-title">
-          Fanarts
-        </div>
+          label.textContent =
+            `fanart${number}.png`;
 
-        <div
-          class="gallery"
-          id="fanartGallery"
-        >
 
-          <div class="gallery-message">
-            Loading fanarts...
+          card.appendChild(img);
+          card.appendChild(label);
+
+
+          card.addEventListener(
+            "click",
+            () => openViewer(
+              src,
+              `Fanart ${number}`
+            )
+          );
+
+
+          grid.appendChild(card);
+
+          found++;
+
+          resolve(true);
+
+        };
+
+
+        test.onerror = () => {
+          resolve(false);
+        };
+
+
+        test.src = src;
+
+      });
+
+    }
+
+
+    async function loadFanarts() {
+
+      const jobs = [];
+
+      for (
+        let i = 1;
+        i <= MAX_FANARTS;
+        i++
+      ) {
+
+        jobs.push(
+          createFanart(i)
+        );
+
+      }
+
+      await Promise.all(jobs);
+
+
+      if (found === 0) {
+
+        grid.innerHTML = `
+          <div class="empty">
+            No fanarts found.<br><br>
+
+            Add images named:
+            <strong>fanart1.png</strong>,
+            <strong>fanart2.png</strong>,
+            <strong>fanart3.png</strong>...
           </div>
+        `;
 
-        </div>
+      }
 
-      </section>
+    }
 
 
-      <div class="separator"></div>
+    /*
+     * -----------------------------------------
+     * FANART VIEWER
+     * -----------------------------------------
+     */
 
+    const viewer =
+      document.getElementById("viewer");
 
-      <!-- FAVOURITE GAMES -->
+    const viewerImage =
+      document.getElementById("viewer-image");
 
-      <section class="section">
+    const viewerTitle =
+      document.getElementById("viewer-title");
 
-        <div class="section-title">
-          My Favourite Games
-        </div>
+    const viewerClose =
+      document.getElementById("viewer-close");
 
-        <div
-          class="gallery"
-          id="gameGallery"
-        >
 
-          <div class="gallery-message">
-            Loading games...
-          </div>
+    function openViewer(
+      src,
+      title
+    ) {
 
-        </div>
+      viewerImage.src =
+        src;
 
-      </section>
+      viewerImage.alt =
+        title;
 
+      viewerTitle.textContent =
+        title;
 
-      <div class="separator"></div>
-
-
-      <!-- THANK YOU -->
-
-      <section class="section">
-
-        <div class="section-title">
-          Thank you to
-        </div>
-
-        <div class="thanks-box">
-
-          <p>
-            Thank you to everyone who helped
-            and supported DevMatryca.
-          </p>
-
-          <div class="thanks-list">
-
-            <span class="thanks-name">
-              Siri
-            </span>
-
-            <span class="thanks-name">
-              Moony
-            </span>
-
-            <span class="thanks-name">
-              T420User
-            </span>
-
-            <span class="thanks-name">
-              artlurg431
-            </span>
-
-            <span class="thanks-name">
-              Vadimmka
-            </span>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <div class="footer">
-        © <span id="year"></span>
-        DevMatryca
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- ========================================
-     FLAPPYDEV
-     ======================================== -->
-
-<div
-  class="game-overlay"
-  id="flappyOverlay"
->
-
-  <div class="window active game-window">
-
-    <div class="title-bar">
-
-      <div class="title-bar-text">
-        FlappyDev
-      </div>
-
-      <div class="title-bar-controls">
-
-        <button
-          type="button"
-          aria-label="Close"
-          id="closeFlappy"
-        ></button>
-
-      </div>
-
-    </div>
-
-
-    <div class="window-body game-window-body">
-
-      <div class="score-bar">
-
-        <span>
-          Score:
-          <strong id="flappyScore">
-            0
-          </strong>
-        </span>
-
-        <span>
-          Highscore:
-          <strong id="flappyHighscore">
-            0
-          </strong>
-        </span>
-
-      </div>
-
-
-      <canvas
-        id="flappyCanvas"
-        class="game-canvas"
-        width="700"
-        height="500"
-      ></canvas>
-
-
-      <div class="game-buttons">
-
-        <button
-          class="button"
-          id="startFlappy"
-          type="button"
-        >
-          Start
-        </button>
-
-        <button
-          class="button"
-          id="restartFlappy"
-          type="button"
-        >
-          Restart
-        </button>
-
-      </div>
-
-
-      <div class="game-help">
-        SPACE, click or tap to flap
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- ========================================
-     DEVSNAKE
-     ======================================== -->
-
-<div
-  class="game-overlay"
-  id="snakeOverlay"
->
-
-  <div class="window active game-window">
-
-    <div class="title-bar">
-
-      <div class="title-bar-text">
-        DevSnake
-      </div>
-
-      <div class="title-bar-controls">
-
-        <button
-          type="button"
-          aria-label="Close"
-          id="closeSnake"
-        ></button>
-
-      </div>
-
-    </div>
-
-
-    <div class="window-body game-window-body">
-
-      <div class="score-bar">
-
-        <span>
-          Score:
-          <strong id="snakeScore">
-            0
-          </strong>
-        </span>
-
-        <span>
-          Highscore:
-          <strong id="snakeHighscore">
-            0
-          </strong>
-        </span>
-
-      </div>
-
-
-      <canvas
-        id="snakeCanvas"
-        class="game-canvas"
-        width="600"
-        height="600"
-      ></canvas>
-
-
-      <div class="game-buttons">
-
-        <button
-          class="button"
-          id="startSnake"
-          type="button"
-        >
-          Start
-        </button>
-
-        <button
-          class="button"
-          id="restartSnake"
-          type="button"
-        >
-          Restart
-        </button>
-
-      </div>
-
-
-      <div class="game-help">
-        Arrow keys or WASD to move
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- ========================================
-     IMAGE VIEWER
-     ======================================== -->
-
-<div
-  class="viewer-overlay"
-  id="viewerOverlay"
->
-
-  <div class="window active viewer-window">
-
-    <div class="title-bar">
-
-      <div
-        class="title-bar-text"
-        id="viewerTitle"
-      >
-        Image
-      </div>
-
-      <div class="title-bar-controls">
-
-        <button
-          type="button"
-          aria-label="Close"
-          id="closeViewer"
-        ></button>
-
-      </div>
-
-    </div>
-
-
-    <div class="window-body viewer-body">
-
-      <img
-        id="viewerImage"
-        src=""
-        alt=""
-      >
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* ==========================================
-   CONFIGURATION
-   ========================================== */
-
-const GITHUB_API =
-  "https://api.github.com/repos/DevMatyz/aboutdevmatryca/contents/";
-
-const RAW_BASE =
-  "https://raw.githubusercontent.com/DevMatyz/aboutdevmatryca/main/";
-
-
-/* ==========================================
-   BASIC
-   ========================================== */
-
-document.getElementById(
-  "year"
-).textContent =
-  new Date().getFullYear();
-
-
-/* ==========================================
-   GITHUB IMAGE LOADER
-   ========================================== */
-
-async function loadRepositoryImages() {
-
-  const fanartGallery =
-    document.getElementById(
-      "fanartGallery"
-    );
-
-  const gameGallery =
-    document.getElementById(
-      "gameGallery"
-    );
-
-
-  try {
-
-    const response =
-      await fetch(
-        GITHUB_API,
-        {
-          headers: {
-            "Accept":
-              "application/vnd.github+json"
-          }
-        }
-      );
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "GitHub API returned HTTP " +
-        response.status
+      viewer.classList.add(
+        "active"
       );
 
     }
 
 
-    const files =
-      await response.json();
+    function closeViewer() {
 
-
-    if (!Array.isArray(files)) {
-
-      throw new Error(
-        "GitHub returned an unexpected response."
+      viewer.classList.remove(
+        "active"
       );
+
+      viewerImage.src =
+        "";
 
     }
 
 
-    const fanarts =
-      files
-        .filter(
-          file =>
-            file.type === "file" &&
-            /^fanart\d+\.png$/i.test(
-              file.name
-            )
-        )
-        .sort(
-          (a, b) =>
-            getImageNumber(a.name) -
-            getImageNumber(b.name)
-        );
-
-
-    const games =
-      files
-        .filter(
-          file =>
-            file.type === "file" &&
-            /^game\d+\.png$/i.test(
-              file.name
-            )
-        )
-        .sort(
-          (a, b) =>
-            getImageNumber(a.name) -
-            getImageNumber(b.name)
-        );
-
-
-    renderGallery(
-      fanartGallery,
-      fanarts,
-      "fanart"
-    );
-
-
-    renderGallery(
-      gameGallery,
-      games,
-      "game"
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "GitHub image loading failed:",
-      error
-    );
-
-
-    fanartGallery.innerHTML =
-      `
-      <div class="gallery-message">
-        <strong>Couldn't load fanarts.</strong>
-        <br><br>
-        ${escapeHtml(error.message)}
-      </div>
-      `;
-
-
-    gameGallery.innerHTML =
-      `
-      <div class="gallery-message">
-        <strong>Couldn't load favourite games.</strong>
-        <br><br>
-        ${escapeHtml(error.message)}
-      </div>
-      `;
-
-  }
-
-}
-
-
-function getImageNumber(
-  filename
-) {
-
-  const match =
-    filename.match(/\d+/);
-
-  return match
-    ? Number(match[0])
-    : Infinity;
-
-}
-
-
-function renderGallery(
-  container,
-  files,
-  type
-) {
-
-  container.innerHTML = "";
-
-
-  if (files.length === 0) {
-
-    container.innerHTML =
-      `
-      <div class="gallery-message">
-        No ${type} images found.
-      </div>
-      `;
-
-    return;
-
-  }
-
-
-  for (
-    const file of files
-  ) {
-
-    const item =
-      document.createElement(
-        "figure"
-      );
-
-    item.className =
-      "gallery-item";
-
-
-    const img =
-      document.createElement(
-        "img"
-      );
-
-
-    img.src =
-      file.download_url ||
-      RAW_BASE +
-      encodeURIComponent(
-        file.name
-      );
-
-
-    img.alt =
-      file.name;
-
-
-    img.loading =
-      "lazy";
-
-
-    const caption =
-      document.createElement(
-        "figcaption"
-      );
-
-    caption.className =
-      "gallery-caption";
-
-
-    caption.textContent =
-      file.name;
-
-
-    item.appendChild(
-      img
-    );
-
-    item.appendChild(
-      caption
-    );
-
-
-    item.addEventListener(
+    viewerClose.addEventListener(
       "click",
-      () => {
+      closeViewer
+    );
 
-        openViewer(
-          img.src,
-          file.name
-        );
+
+    viewer.addEventListener(
+      "click",
+      event => {
+
+        if (
+          event.target === viewer
+        ) {
+
+          closeViewer();
+
+        }
 
       }
     );
 
 
-    container.appendChild(
-      item
-    );
+    document.addEventListener(
+      "keydown",
+      event => {
 
-  }
+        if (
+          event.key === "Escape"
+        ) {
 
-}
+          closeViewer();
 
+        }
 
-function escapeHtml(
-  value
-) {
-
-  return String(value)
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-
-/* LOAD GITHUB FILES */
-
-loadRepositoryImages();
-
-
-/* ==========================================
-   IMAGE VIEWER
-   ========================================== */
-
-const viewerOverlay =
-  document.getElementById(
-    "viewerOverlay"
-  );
-
-const viewerImage =
-  document.getElementById(
-    "viewerImage"
-  );
-
-const viewerTitle =
-  document.getElementById(
-    "viewerTitle"
-  );
-
-
-function openViewer(
-  src,
-  title
-) {
-
-  viewerImage.src =
-    src;
-
-  viewerImage.alt =
-    title;
-
-  viewerTitle.textContent =
-    title;
-
-  viewerOverlay.classList.add(
-    "open"
-  );
-
-}
-
-
-function closeViewer() {
-
-  viewerOverlay.classList.remove(
-    "open"
-  );
-
-  viewerImage.src =
-    "";
-
-}
-
-
-document.getElementById(
-  "closeViewer"
-).addEventListener(
-  "click",
-  closeViewer
-);
-
-
-viewerOverlay.addEventListener(
-  "click",
-  event => {
-
-    if (
-      event.target ===
-      viewerOverlay
-    ) {
-
-      closeViewer();
-
-    }
-
-  }
-);
-
-
-/* ==========================================
-   FLAPPYDEV
-   ========================================== */
-
-const flappyOverlay =
-  document.getElementById(
-    "flappyOverlay"
-  );
-
-const flappyCanvas =
-  document.getElementById(
-    "flappyCanvas"
-  );
-
-const flappyCtx =
-  flappyCanvas.getContext(
-    "2d"
-  );
-
-
-const flappyImage =
-  new Image();
-
-flappyImage.src =
-  "flappydev.png";
-
-
-let flappyRunning =
-  false;
-
-let flappyAnimation =
-  null;
-
-let flappyScore =
-  0;
-
-let flappyHighscore =
-  Number(
-    localStorage.getItem(
-      "devmatryca_flappy_highscore"
-    )
-  ) || 0;
-
-
-let flappyPlayer = {
-
-  x: 130,
-  y: 220,
-
-  width: 52,
-  height: 52,
-
-  velocity: 0
-
-};
-
-
-let flappyPipes = [];
-
-let lastPipeTime = 0;
-
-
-document.getElementById(
-  "flappyHighscore"
-).textContent =
-  flappyHighscore;
-
-
-function flappyBackground() {
-
-  const gradient =
-    flappyCtx.createLinearGradient(
-      0,
-      0,
-      0,
-      500
+      }
     );
 
 
-  gradient.addColorStop(
-    0,
-    "#5eb9e8"
-  );
-
-
-  gradient.addColorStop(
-    1,
-    "#dff7ff"
-  );
-
-
-  flappyCtx.fillStyle =
-    gradient;
-
-
-  flappyCtx.fillRect(
-    0,
-    0,
-    700,
-    500
-  );
-
-
-  /* clouds */
-
-  flappyCtx.fillStyle =
-    "rgba(255,255,255,.85)";
-
-
-  drawCloud(
-    100,
-    90,
-    1
-  );
-
-
-  drawCloud(
-    500,
-    130,
-    .8
-  );
-
-
-  drawCloud(
-    350,
-    55,
-    .6
-  );
-
-
-  /* ground */
-
-  flappyCtx.fillStyle =
-    "#72b94b";
-
-
-  flappyCtx.fillRect(
-    0,
-    455,
-    700,
-    45
-  );
-
-
-  flappyCtx.fillStyle =
-    "#a5db70";
-
-
-  flappyCtx.fillRect(
-    0,
-    455,
-    700,
-    7
-  );
-
-}
-
-
-function drawCloud(
-  x,
-  y,
-  scale
-) {
-
-  flappyCtx.beginPath();
-
-
-  flappyCtx.arc(
-    x,
-    y,
-    22 * scale,
-    0,
-    Math.PI * 2
-  );
-
-
-  flappyCtx.arc(
-    x + 28 * scale,
-    y - 10 * scale,
-    29 * scale,
-    0,
-    Math.PI * 2
-  );
-
-
-  flappyCtx.arc(
-    x + 58 * scale,
-    y,
-    22 * scale,
-    0,
-    Math.PI * 2
-  );
-
-
-  flappyCtx.fill();
-
-}
-
-
-function drawFlappyPlayer() {
-
-  if (
-    flappyImage.complete &&
-    flappyImage.naturalWidth
-  ) {
-
-    flappyCtx.save();
-
-
-    flappyCtx.translate(
-      flappyPlayer.x + 26,
-      flappyPlayer.y + 26
-    );
-
-
-    flappyCtx.rotate(
-      Math.max(
-        -.4,
-        Math.min(
-          1,
-          flappyPlayer.velocity *
-          .05
-        )
-      )
-    );
-
-
-    flappyCtx.drawImage(
-      flappyImage,
-      -26,
-      -26,
-      52,
-      52
-    );
-
-
-    flappyCtx.restore();
-
-    return;
-
-  }
-
-
-  flappyCtx.fillStyle =
-    "#ffcc33";
-
-
-  flappyCtx.beginPath();
-
-
-  flappyCtx.arc(
-    flappyPlayer.x + 26,
-    flappyPlayer.y + 26,
-    24,
-    0,
-    Math.PI * 2
-  );
-
-
-  flappyCtx.fill();
-
-}
-
-
-function createPipe() {
-
-  const gap =
-    155;
-
-
-  const top =
-    55 +
-    Math.random() *
-    230;
-
-
-  flappyPipes.push({
-
-    x: 700,
-
-    top: top,
-
-    bottom:
-      top + gap,
-
-    passed: false
-
-  });
-
-}
-
-
-function drawPipe(
-  pipe
-) {
-
-  flappyCtx.fillStyle =
-    "#4c9d3b";
-
-
-  flappyCtx.fillRect(
-    pipe.x,
-    0,
-    70,
-    pipe.top
-  );
-
-
-  flappyCtx.fillRect(
-    pipe.x - 5,
-    pipe.top - 18,
-    80,
-    18
-  );
-
-
-  flappyCtx.fillRect(
-    pipe.x,
-    pipe.bottom,
-    70,
-    455 -
-    pipe.bottom
-  );
-
-
-  flappyCtx.fillRect(
-    pipe.x - 5,
-    pipe.bottom,
-    80,
-    18
-  );
-
-
-  flappyCtx.fillStyle =
-    "#7bc765";
-
-
-  flappyCtx.fillRect(
-    pipe.x + 8,
-    0,
-    9,
-    pipe.top
-  );
-
-}
-
-
-function flappyCollision(
-  pipe
-) {
-
-  const p =
-    flappyPlayer;
-
-
-  const padding =
-    7;
-
-
-  return (
-
-    p.x + p.width - padding >
-      pipe.x &&
-
-    p.x + padding <
-      pipe.x + 70 &&
-
-    (
-
-      p.y + padding <
-        pipe.top ||
-
-      p.y + p.height -
-        padding >
-        pipe.bottom
-
-    )
-
-  );
-
-}
-
-
-function drawFlappyStart() {
-
-  flappyBackground();
-
-
-  flappyCtx.fillStyle =
-    "rgba(0,0,0,.35)";
-
-
-  flappyCtx.fillRect(
-    0,
-    0,
-    700,
-    500
-  );
-
-
-  flappyCtx.textAlign =
-    "center";
-
-
-  flappyCtx.fillStyle =
-    "white";
-
-
-  flappyCtx.font =
-    "bold 44px Segoe UI";
-
-
-  flappyCtx.fillText(
-    "FlappyDev",
-    350,
-    205
-  );
-
-
-  flappyCtx.font =
-    "20px Segoe UI";
-
-
-  flappyCtx.fillText(
-    "Press Start to play",
-    350,
-    245
-  );
-
-
-  flappyCtx.font =
-    "15px Segoe UI";
-
-
-  flappyCtx.fillText(
-    "SPACE / click / tap",
-    350,
-    275
-  );
-
-}
-
-
-function startFlappy() {
-
-  if (
-    flappyRunning
-  ) {
-    return;
-  }
-
-
-  flappyRunning =
-    true;
-
-
-  flappyScore =
-    0;
-
-
-  flappyPipes =
-    [];
-
-
-  flappyPlayer.y =
-    220;
-
-
-  flappyPlayer.velocity =
-    0;
-
-
-  document.getElementById(
-    "flappyScore"
-  ).textContent =
-    "0";
-
-
-  createPipe();
-
-
-  lastPipeTime =
-    performance.now();
-
-
-  flappyAnimation =
-    requestAnimationFrame(
-      flappyLoop
-    );
-
-}
-
-
-function flap() {
-
-  if (
-    !flappyRunning
-  ) {
-    return;
-  }
-
-
-  flappyPlayer.velocity =
-    -7.5;
-
-}
-
-
-function flappyLoop(
-  time
-) {
-
-  if (
-    !flappyRunning
-  ) {
-    return;
-  }
-
-
-  flappyPlayer.velocity +=
-    .42;
-
-
-  flappyPlayer.y +=
-    flappyPlayer.velocity;
-
-
-  if (
-    time -
-    lastPipeTime >
-    1650
-  ) {
-
-    createPipe();
-
-    lastPipeTime =
-      time;
-
-  }
-
-
-  for (
-    const pipe of flappyPipes
-  ) {
-
-    pipe.x -= 3;
-
-
-    if (
-      !pipe.passed &&
-      pipe.x + 70 <
-      flappyPlayer.x
-    ) {
-
-      pipe.passed =
-        true;
-
-
-      flappyScore++;
-
-
-      document.getElementById(
-        "flappyScore"
-      ).textContent =
-        flappyScore;
-
-    }
-
-  }
-
-
-  flappyPipes =
-    flappyPipes.filter(
-      pipe =>
-        pipe.x > -100
-    );
-
-
-  if (
-    flappyPlayer.y < 0 ||
-    flappyPlayer.y +
-      flappyPlayer.height >
-      455
-  ) {
-
-    flappyGameOver();
-
-    return;
-
-  }
-
-
-  for (
-    const pipe of flappyPipes
-  ) {
-
-    if (
-      flappyCollision(pipe)
-    ) {
-
-      flappyGameOver();
-
-      return;
-
-    }
-
-  }
-
-
-  flappyBackground();
-
-
-  flappyPipes.forEach(
-    drawPipe
-  );
-
-
-  drawFlappyPlayer();
-
-
-  flappyAnimation =
-    requestAnimationFrame(
-      flappyLoop
-    );
-
-}
-
-
-function flappyGameOver() {
-
-  flappyRunning =
-    false;
-
-
-  if (
-    flappyAnimation !== null
-  ) {
-
-    cancelAnimationFrame(
-      flappyAnimation
-    );
-
-  }
-
-
-  flappyAnimation =
-    null;
-
-
-  if (
-    flappyScore >
-    flappyHighscore
-  ) {
-
-    flappyHighscore =
-      flappyScore;
-
-
-    localStorage.setItem(
-      "devmatryca_flappy_highscore",
-      String(
-        flappyHighscore
-      )
-    );
-
+    /*
+     * -----------------------------------------
+     * YEAR
+     * -----------------------------------------
+     */
 
     document.getElementById(
-      "flappyHighscore"
+      "year"
     ).textContent =
-      flappyHighscore;
-
-  }
+      new Date().getFullYear();
 
 
-  flappyBackground();
+    /*
+     * -----------------------------------------
+     * START
+     * -----------------------------------------
+     */
 
+    loadFanarts();
 
-  flappyPipes.forEach(
-    drawPipe
-  );
+  </script>
 
-
-  drawFlappyPlayer();
-
-
-  flappyCtx.fillStyle =
-    "rgba(0,0,0,.4)";
-
-
-  flappyCtx.fillRect(
-    0,
-    0,
-    700,
-    500
-  );
-
-
-  flappyCtx.fillStyle =
-    "white";
-
-
-  flappyCtx.textAlign =
-    "center";
-
-
-  flappyCtx.font =
-    "bold 38px Segoe UI";
-
-
-  flappyCtx.fillText(
-    "Game Over",
-    350,
-    220
-  );
-
-
-  flappyCtx.font =
-    "18px Segoe UI";
-
-
-  flappyCtx.fillText(
-    "Press Restart",
-    350,
-    260
-  );
-
-}
-
-
-function stopFlappy() {
-
-  flappyRunning =
-    false;
-
-
-  if (
-    flappyAnimation !== null
-  ) {
-
-    cancelAnimationFrame(
-      flappyAnimation
-    );
-
-  }
-
-
-  flappyAnimation =
-    null;
-
-}
-
-
-/* FLAPPY EVENTS */
-
-document.getElementById(
-  "flappyButton"
-).addEventListener(
-  "click",
-  () => {
-
-    flappyOverlay.classList.add(
-      "open"
-    );
-
-    drawFlappyStart();
-
-  }
-);
-
-
-document.getElementById(
-  "closeFlappy"
-).addEventListener(
-  "click",
-  () => {
-
-    stopFlappy();
-
-    flappyOverlay.classList.remove(
-      "open"
-    );
-
-  }
-);
-
-
-document.getElementById(
-  "startFlappy"
-).addEventListener(
-  "click",
-  startFlappy
-);
-
-
-document.getElementById(
-  "restartFlappy"
-).addEventListener(
-  "click",
-  () => {
-
-    stopFl
+</body>
+</html>
