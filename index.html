@@ -6,438 +6,379 @@
 
   <title>DevMatryca</title>
 
-  <meta name="description" content="DevMatryca — developer, creator and fanart collection.">
-  <meta name="theme-color" content="#0b0b10">
+  <!-- Windows 7 UI framework -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/7.css"
+  >
 
   <style>
-    :root {
-      --bg: #08090d;
-      --text: #f5f5f7;
-      --muted: #a7a7b2;
-      --glass: rgba(255, 255, 255, 0.075);
-      --glass-border: rgba(255, 255, 255, 0.14);
-      --accent: #ffffff;
-      --radius: 28px;
-    }
-
     * {
       box-sizing: border-box;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
     }
 
     body {
-      margin: 0;
       min-height: 100vh;
-      color: var(--text);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+
+      /* Windows 7-ish desktop */
       background:
-        radial-gradient(circle at 15% 10%, rgba(100, 110, 255, 0.18), transparent 30%),
-        radial-gradient(circle at 85% 25%, rgba(255, 100, 180, 0.13), transparent 28%),
-        radial-gradient(circle at 50% 90%, rgba(80, 180, 255, 0.10), transparent 32%),
-        var(--bg);
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-      overflow-x: hidden;
+        linear-gradient(
+          rgba(20, 60, 105, 0.12),
+          rgba(0, 0, 0, 0.08)
+        ),
+        url("https://i.imgur.com/5KQ7K6M.jpg");
+
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+
+      padding: 35px;
     }
 
-    /* Decorative background */
-    .background-orb {
+    /* Dark translucent desktop overlay */
+    body::before {
+      content: "";
       position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.18;
+      inset: 0;
       pointer-events: none;
-      z-index: -2;
+
+      background:
+        radial-gradient(
+          circle at 50% 20%,
+          rgba(255,255,255,.10),
+          transparent 45%
+        );
+
+      z-index: -1;
     }
 
-    .orb-one {
-      top: -180px;
-      left: -120px;
-      background: #5965ff;
+    .desktop {
+      width: 100%;
+      min-height: calc(100vh - 70px);
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding-top: 20px;
     }
 
-    .orb-two {
-      right: -150px;
-      top: 35%;
-      background: #ff4fa3;
+    /* Main DevMatryca window */
+    .main-window {
+      width: min(950px, 100%);
     }
 
-    .orb-three {
-      bottom: -200px;
-      left: 30%;
-      background: #3ab8ff;
-    }
-
-    /* LiquidGL navigation */
-    .liquidGL {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(720px, calc(100% - 28px));
-      min-height: 66px;
-      z-index: 100;
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      background: rgba(20, 20, 26, 0.42);
+    .window-body {
       overflow: hidden;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
-    }
-
-    .nav-content {
-      position: relative;
-      z-index: 3;
-      min-height: 66px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px 10px 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .brand-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: white;
-      box-shadow: 0 0 18px rgba(255,255,255,.8);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 8px;
-    }
-
-    .nav-links a {
-      color: var(--text);
-      text-decoration: none;
-      padding: 10px 14px;
-      border-radius: 15px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      background: rgba(255,255,255,.1);
-      transform: translateY(-1px);
-    }
-
-    /* Main */
-    main {
-      width: min(1050px, calc(100% - 30px));
-      margin: 0 auto;
-      padding: 145px 0 80px;
     }
 
     .hero {
-      text-align: center;
       display: flex;
       align-items: center;
-      flex-direction: column;
-    }
+      gap: 25px;
 
-    .avatar-wrap {
-      width: 150px;
-      height: 150px;
-      padding: 5px;
-      border-radius: 50%;
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.9),
-          rgba(255,255,255,.15)
-        );
-      box-shadow:
-        0 20px 70px rgba(0,0,0,.45),
-        0 0 50px rgba(120,130,255,.15);
-      animation: float 5s ease-in-out infinite;
+      padding: 22px;
+
+      min-height: 190px;
     }
 
     .avatar {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
+      width: 130px;
+      height: 130px;
+
       border-radius: 50%;
-      background: #16171e;
+
+      object-fit: cover;
+
+      border: 3px solid white;
+
+      box-shadow:
+        0 2px 7px rgba(0,0,0,.45);
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
+    .hero-text h1 {
+      margin: 0 0 7px;
 
-      50% {
-        transform: translateY(-7px);
-      }
+      font-size: 34px;
+      font-weight: 600;
+
+      color: #222;
     }
 
-    .hero h1 {
-      margin: 28px 0 8px;
-      font-size: clamp(42px, 8vw, 76px);
-      line-height: .95;
-      letter-spacing: -0.055em;
+    .hero-text p {
+      margin: 0 0 18px;
+
+      color: #444;
+      font-size: 15px;
     }
 
-    .hero p {
-      max-width: 600px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-    /* Social button */
-    .socials {
-      margin-top: 28px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .social-link {
+    /* Roblox button */
+    .roblox-button {
       display: inline-flex;
+
       align-items: center;
-      gap: 12px;
-      padding: 14px 20px;
-      color: white;
+      gap: 8px;
+
       text-decoration: none;
-      border-radius: 19px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.075);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 12px 35px rgba(0,0,0,.2);
-      transition: transform .2s ease, background .2s ease;
+
+      color: #111;
     }
 
-    .social-link:hover {
-      transform: translateY(-3px) scale(1.015);
-      background: rgba(255,255,255,.12);
-    }
+    .roblox-logo {
+      width: 18px;
+      height: 18px;
 
-    .social-link img {
-      width: 24px;
-      height: 24px;
-    }
-
-    /* Sections */
-    .section {
-      margin-top: 100px;
-    }
-
-    .section-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-
-    .section-heading h2 {
-      margin: 0;
-      font-size: clamp(28px, 5vw, 42px);
-      letter-spacing: -0.04em;
-    }
-
-    .section-heading span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Fanart grid */
-    .fanart-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: start;
-      gap: 18px;
-    }
-
-    .fanart-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: var(--radius);
-      border: 1px solid var(--glass-border);
-      background: rgba(255,255,255,.055);
-      box-shadow: 0 15px 45px rgba(0,0,0,.25);
-      cursor: pointer;
-      transition:
-        transform .3s ease,
-        box-shadow .3s ease;
-    }
-
-    .fanart-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 60px rgba(0,0,0,.4);
-    }
-
-    .fanart-card img {
-      display: block;
-      width: 100%;
-      height: auto;
       object-fit: contain;
     }
 
-    .fanart-number {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      padding: 7px 11px;
-      border-radius: 12px;
-      color: white;
-      background: rgba(0,0,0,.45);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      font-size: 12px;
-      font-weight: 700;
+    /* Separator */
+    .separator {
+      height: 1px;
+
+      margin: 5px 15px 15px;
+
+      background: #c7c7c7;
+
+      border-top: 1px solid white;
     }
 
-    .empty-fanart {
-      grid-column: 1 / -1;
+    .section {
+      padding: 0 15px 20px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+
+      margin: 10px 0 12px;
+    }
+
+    /* Fanart */
+    .fanart-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(190px, 1fr)
+        );
+
+      gap: 12px;
+
+      align-items: start;
+    }
+
+    .fanart {
+      position: relative;
+
+      padding: 4px;
+
+      cursor: pointer;
+
+      background: #f3f3f3;
+
+      border: 1px solid #999;
+
+      border-radius: 2px;
+
+      box-shadow:
+        0 1px 3px rgba(0,0,0,.3);
+
+      transition:
+        transform .12s ease,
+        box-shadow .12s ease;
+    }
+
+    .fanart:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 4px 9px rgba(0,0,0,.35);
+    }
+
+    .fanart img {
+      display: block;
+
+      width: 100%;
+      height: auto;
+
+      border: 1px solid #aaa;
+    }
+
+    .fanart-label {
+      position: absolute;
+
+      left: 7px;
+      bottom: 7px;
+
+      padding: 2px 6px;
+
+      color: white;
+
+      font-size: 11px;
+
+      background: rgba(0,0,0,.65);
+
+      border-radius: 2px;
+    }
+
+    /* Empty fanart message */
+    .empty {
+      padding: 25px;
+
       text-align: center;
-      padding: 60px 20px;
-      border-radius: var(--radius);
-      border: 1px dashed rgba(255,255,255,.15);
-      color: var(--muted);
+
+      color: #555;
+
+      border: 1px dashed #aaa;
+
+      background: rgba(255,255,255,.5);
     }
 
     /* Thanks */
-    .thanks-card {
-      padding: 32px;
-      border-radius: var(--radius);
-      border: 1px solid var(--glass-border);
-      background: rgba(255,255,255,.055);
-      backdrop-filter: blur(22px);
-      -webkit-backdrop-filter: blur(22px);
+    .thanks {
+      padding: 15px;
+
+      background:
+        linear-gradient(
+          #fff,
+          #f0f0f0
+        );
+
+      border: 1px solid #aaa;
+
+      box-shadow:
+        inset 0 1px white;
     }
 
-    .thanks-list {
+    .thanks p {
+      margin-top: 0;
+    }
+
+    .names {
       display: flex;
+
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
+
+      gap: 7px;
     }
 
-    .thanks-person {
-      padding: 10px 14px;
-      border-radius: 15px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.1);
-      color: #e9e9ef;
-      font-size: 14px;
-    }
+    .name {
+      padding: 5px 9px;
 
-    footer {
-      text-align: center;
-      color: #777782;
+      border: 1px solid #aaa;
+
+      border-radius: 2px;
+
+      background:
+        linear-gradient(
+          #fff,
+          #e8e8e8
+        );
+
+      box-shadow:
+        inset 0 1px white;
+
       font-size: 13px;
-      padding: 70px 0 25px;
     }
 
-    /* Fullscreen fanart viewer */
+    /* Footer */
+    .footer {
+      text-align: center;
+
+      color: #444;
+
+      padding: 10px;
+
+      font-size: 12px;
+    }
+
+    /* Fanart popup */
     .viewer {
       position: fixed;
+
       inset: 0;
-      z-index: 999;
+
       display: none;
+
       align-items: center;
       justify-content: center;
-      padding: 25px;
-      background: rgba(0,0,0,.78);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+
+      background:
+        rgba(0, 0, 0, .42);
+
+      z-index: 1000;
     }
 
-    .viewer.open {
+    .viewer.active {
       display: flex;
     }
 
-    .viewer img {
-      max-width: min(95vw, 1400px);
-      max-height: 90vh;
+    .viewer-window {
+      width: min(1000px, 94vw);
+      max-height: 92vh;
+    }
+
+    .viewer-content {
+      display: flex;
+      justify-content: center;
+
+      padding: 10px;
+
+      background: #eee;
+
+      overflow: auto;
+    }
+
+    .viewer-content img {
+      max-width: 100%;
+      max-height: 78vh;
+
       width: auto;
       height: auto;
+
       object-fit: contain;
-      border-radius: 22px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
+
+      border: 1px solid #888;
+
+      box-shadow:
+        0 2px 8px rgba(0,0,0,.35);
     }
 
-    .close-viewer {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 48px;
-      height: 48px;
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: 50%;
-      color: white;
-      background: rgba(255,255,255,.1);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    @media (max-width: 750px) {
-      .fanart-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    /* Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
       }
 
-      .liquidGL {
-        top: 10px;
+      .desktop {
+        min-height: calc(100vh - 20px);
       }
 
-      .nav-links a {
-        padding: 9px 10px;
+      .hero {
+        flex-direction: column;
+
+        text-align: center;
       }
 
-      main {
-        padding-top: 120px;
+      .hero-text h1 {
+        font-size: 28px;
       }
-    }
 
-    @media (max-width: 480px) {
+      .avatar {
+        width: 110px;
+        height: 110px;
+      }
+
       .fanart-grid {
         grid-template-columns: 1fr;
-      }
-
-      .brand {
-        font-size: 14px;
-      }
-
-      .nav-links a {
-        font-size: 12px;
-      }
-
-      .avatar-wrap {
-        width: 125px;
-        height: 125px;
-      }
-    }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
       }
     }
   </style>
@@ -445,371 +386,407 @@
 
 <body>
 
-  <div class="background-orb orb-one"></div>
-  <div class="background-orb orb-two"></div>
-  <div class="background-orb orb-three"></div>
+  <div class="desktop">
 
-  <!-- LiquidGL navigation -->
-  <nav class="liquidGL" aria-label="Main navigation">
-    <div class="nav-content">
-      <div class="brand">
-        <span class="brand-dot"></span>
-        <span>DevMatryca</span>
+    <!-- Main application window -->
+    <div class="window active main-window">
+
+      <div class="title-bar">
+        <div class="title-bar-text">
+          DevMatryca
+        </div>
+
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
       </div>
 
-      <div class="nav-links">
-        <a href="#fanarts">Fanarts</a>
-        <a href="#thanks">Thanks</a>
-      </div>
-    </div>
-  </nav>
+      <div class="window-body has-space">
 
-  <main>
+        <!-- Profile -->
+        <section class="hero">
 
-    <!-- Hero -->
-    <section class="hero">
-
-      <div class="avatar-wrap">
-        <img
-          class="avatar"
-          src="avatar.png"
-          alt="DevMatryca profile avatar"
-        >
-      </div>
-
-      <h1>DevMatryca</h1>
-
-      <p>
-        Developer, creator and internet enjoyer.
-        Welcome to my little corner of the web.
-      </p>
-
-      <!-- Social link -->
-      <div class="socials">
-        <a
-          class="social-link"
-          href="https://www.roblox.com/users/4963370209/profile"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="DevMatryca on Roblox"
-        >
-          <!-- Roblox logo through the public Iconify API -->
           <img
-            src="https://api.iconify.design/simple-icons:roblox.svg?color=white"
-            alt="Roblox"
+            src="avatar.png"
+            alt="DevMatryca avatar"
+            class="avatar"
           >
 
-          <span>Roblox</span>
+          <div class="hero-text">
 
-          <span aria-hidden="true">↗</span>
-        </a>
-      </div>
+            <h1>DevMatryca</h1>
 
-    </section>
+            <p>
+              Developer, creator and fanart enjoyer.
+            </p>
 
-    <!-- Fanarts -->
-    <section class="section" id="fanarts">
+            <a
+              class="button roblox-button"
+              href="https://www.roblox.com/users/4963370209/profile"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                class="roblox-logo"
+                src="https://api.iconify.design/simple-icons:roblox.svg"
+                alt=""
+              >
 
-      <div class="section-heading">
-        <div>
-          <h2>Fanarts</h2>
+              Roblox
+            </a>
+
+          </div>
+
+        </section>
+
+        <div class="separator"></div>
+
+        <!-- Fanarts -->
+        <section class="section">
+
+          <div class="section-title">
+            Fanarts
+          </div>
+
+          <div
+            id="fanart-grid"
+            class="fanart-grid"
+          ></div>
+
+        </section>
+
+        <div class="separator"></div>
+
+        <!-- Thanks -->
+        <section class="section">
+
+          <div class="section-title">
+            Thank you to
+          </div>
+
+          <div class="thanks">
+
+            <p>
+              Thanks to everyone who helped, inspired,
+              or contributed to DevMatryca.
+            </p>
+
+            <div class="names">
+
+              <span class="name">Siri</span>
+              <span class="name">Moony</span>
+              <span class="name">T420User</span>
+              <span class="name">artlurg431</span>
+              <span class="name">Vadimmka</span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <div class="footer">
+          © <span id="year"></span> DevMatryca
         </div>
 
-        <span id="fanart-count">Loading…</span>
       </div>
+    </div>
 
-      <div
-        class="fanart-grid"
-        id="fanart-grid"
-        aria-live="polite"
-      ></div>
-
-    </section>
-
-    <!-- Thanks -->
-    <section class="section" id="thanks">
-
-      <div class="section-heading">
-        <h2>Thank you to</h2>
-      </div>
-
-      <div class="thanks-card">
-
-        <p style="margin:0;color:var(--muted);line-height:1.6;">
-          A little thank-you to the people who helped, inspired,
-          or contributed along the way.
-        </p>
-
-        <div class="thanks-list">
-          <span class="thanks-person">Siri</span>
-          <span class="thanks-person">Moony</span>
-          <span class="thanks-person">T420User</span>
-          <span class="thanks-person">artlurg431</span>
-          <span class="thanks-person">Vadimmka</span>
-        </div>
-
-      </div>
-
-    </section>
-
-    <footer>
-      © <span id="year"></span> DevMatryca
-    </footer>
-
-  </main>
-
-  <!-- Fanart viewer -->
-  <div
-    class="viewer"
-    id="viewer"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Fanart viewer"
-  >
-    <button
-      class="close-viewer"
-      id="close-viewer"
-      aria-label="Close fanart viewer"
-    >
-      ×
-    </button>
-
-    <img
-      id="viewer-image"
-      src=""
-      alt="Expanded fanart"
-    >
   </div>
 
 
-  <!--
-    liquidGL v2.x
+  <!-- Fanart viewer -->
+  <div
+    id="viewer"
+    class="viewer"
+  >
 
-    The current liquidGL repository uses its own built-in DOM
-    rasteriser, so html2canvas is not required.
-  -->
-  <script
-    src="https://raw.githubusercontent.com/naughtyduk/liquidGL/main/scripts/liquidGL.js"
-  ></script>
+    <div
+      class="window active viewer-window"
+    >
+
+      <div class="title-bar">
+
+        <div
+          id="viewer-title"
+          class="title-bar-text"
+        >
+          Fanart
+        </div>
+
+        <div class="title-bar-controls">
+
+          <button
+            aria-label="Close"
+            id="viewer-close"
+          ></button>
+
+        </div>
+
+      </div>
+
+      <div class="window-body viewer-content">
+
+        <img
+          id="viewer-image"
+          src=""
+          alt=""
+        >
+
+      </div>
+
+    </div>
+
+  </div>
+
 
   <script>
+
     /*
-     * FANART LOADER
+     * -----------------------------------------
+     * FANART AUTO DISCOVERY
+     * -----------------------------------------
      *
-     * Automatically searches for:
+     * Automatically loads:
      *
      * fanart1.png
      * fanart2.png
      * fanart3.png
-     * fanart4.png
      * ...
      *
-     * You don't have to manually add images to this HTML.
+     * No need to edit the HTML when adding art.
      */
 
-    const fanartGrid = document.getElementById("fanart-grid");
-    const fanartCount = document.getElementById("fanart-count");
+    const grid =
+      document.getElementById("fanart-grid");
 
     const MAX_FANARTS = 100;
 
-    let loadedFanarts = 0;
+    let found = 0;
 
-    function addFanart(number) {
-      return new Promise((resolve) => {
 
-        const src = `fanart${number}.png`;
+    function createFanart(number) {
 
-        const img = new Image();
+      return new Promise(resolve => {
 
-        img.onload = () => {
+        const src =
+          `fanart${number}.png`;
 
-          const card = document.createElement("article");
-          card.className = "fanart-card";
+        const test =
+          new Image();
 
-          const image = document.createElement("img");
-          image.src = src;
-          image.alt = `Fanart ${number}`;
-          image.loading = "lazy";
+        test.onload = () => {
 
-          const numberLabel = document.createElement("span");
-          numberLabel.className = "fanart-number";
-          numberLabel.textContent = `#${number}`;
+          const card =
+            document.createElement("div");
 
-          card.appendChild(image);
-          card.appendChild(numberLabel);
+          card.className =
+            "fanart";
 
-          card.addEventListener("click", () => {
-            openViewer(src, `Fanart ${number}`);
-          });
+          const img =
+            document.createElement("img");
 
-          fanartGrid.appendChild(card);
+          img.src = src;
 
-          loadedFanarts++;
+          img.alt =
+            `Fanart ${number}`;
+
+          img.loading =
+            "lazy";
+
+
+          const label =
+            document.createElement("span");
+
+          label.className =
+            "fanart-label";
+
+          label.textContent =
+            `fanart${number}.png`;
+
+
+          card.appendChild(img);
+          card.appendChild(label);
+
+
+          card.addEventListener(
+            "click",
+            () => openViewer(
+              src,
+              `Fanart ${number}`
+            )
+          );
+
+
+          grid.appendChild(card);
+
+          found++;
 
           resolve(true);
+
         };
 
-        img.onerror = () => {
+
+        test.onerror = () => {
           resolve(false);
         };
 
-        img.src = src;
+
+        test.src = src;
+
       });
+
     }
+
 
     async function loadFanarts() {
 
       const jobs = [];
 
-      for (let i = 1; i <= MAX_FANARTS; i++) {
-        jobs.push(addFanart(i));
+      for (
+        let i = 1;
+        i <= MAX_FANARTS;
+        i++
+      ) {
+
+        jobs.push(
+          createFanart(i)
+        );
+
       }
 
       await Promise.all(jobs);
 
-      if (loadedFanarts === 0) {
 
-        fanartGrid.innerHTML = `
-          <div class="empty-fanart">
-            No fanarts found yet.<br>
-            Add images such as <strong>fanart1.png</strong>,
-            <strong>fanart2.png</strong>, etc.
+      if (found === 0) {
+
+        grid.innerHTML = `
+          <div class="empty">
+            No fanarts found.<br><br>
+
+            Add images named:
+            <strong>fanart1.png</strong>,
+            <strong>fanart2.png</strong>,
+            <strong>fanart3.png</strong>...
           </div>
         `;
 
-        fanartCount.textContent = "0 fanarts";
-
-      } else {
-
-        fanartCount.textContent =
-          `${loadedFanarts} fanart${loadedFanarts === 1 ? "" : "s"}`;
       }
 
-      /*
-       * Fanart images are dynamic content.
-       * Register them with liquidGL if the API is available.
-       */
-      if (
-        typeof liquidGL !== "undefined" &&
-        typeof liquidGL.registerDynamic === "function"
-      ) {
-        liquidGL.registerDynamic(".fanart-card img");
-      }
     }
 
 
     /*
+     * -----------------------------------------
      * FANART VIEWER
+     * -----------------------------------------
      */
 
-    const viewer = document.getElementById("viewer");
-    const viewerImage = document.getElementById("viewer-image");
-    const closeViewer = document.getElementById("close-viewer");
+    const viewer =
+      document.getElementById("viewer");
 
-    function openViewer(src, alt) {
+    const viewerImage =
+      document.getElementById("viewer-image");
 
-      viewerImage.src = src;
-      viewerImage.alt = alt;
+    const viewerTitle =
+      document.getElementById("viewer-title");
 
-      viewer.classList.add("open");
+    const viewerClose =
+      document.getElementById("viewer-close");
 
-      document.body.style.overflow = "hidden";
+
+    function openViewer(
+      src,
+      title
+    ) {
+
+      viewerImage.src =
+        src;
+
+      viewerImage.alt =
+        title;
+
+      viewerTitle.textContent =
+        title;
+
+      viewer.classList.add(
+        "active"
+      );
+
     }
 
-    function closeFanartViewer() {
 
-      viewer.classList.remove("open");
+    function closeViewer() {
 
-      viewerImage.src = "";
+      viewer.classList.remove(
+        "active"
+      );
 
-      document.body.style.overflow = "";
+      viewerImage.src =
+        "";
+
     }
 
-    closeViewer.addEventListener(
+
+    viewerClose.addEventListener(
       "click",
-      closeFanartViewer
+      closeViewer
     );
 
-    viewer.addEventListener("click", (event) => {
 
-      if (event.target === viewer) {
-        closeFanartViewer();
-      }
+    viewer.addEventListener(
+      "click",
+      event => {
 
-    });
+        if (
+          event.target === viewer
+        ) {
 
-    document.addEventListener("keydown", (event) => {
+          closeViewer();
 
-      if (event.key === "Escape") {
-        closeFanartViewer();
-      }
-
-    });
-
-
-    /*
-     * LIQUIDGL
-     */
-
-    function initializeLiquidGlass() {
-
-      if (typeof liquidGL === "undefined") {
-        console.warn("liquidGL could not be loaded.");
-        return;
-      }
-
-      liquidGL({
-        snapshot: "body",
-
-        target: ".liquidGL",
-
-        resolution: 1.5,
-
-        refraction: 0.025,
-
-        aberration: 0.015,
-
-        bevelDepth: 0.08,
-
-        bevelWidth: 0.15,
-
-        frost: 1,
-
-        shadow: true,
-
-        specular: true,
-
-        reveal: "fade",
-
-        tilt: true,
-
-        tiltFactor: 3,
-
-        tiltEase: 400,
-
-        magnify: 1,
-
-        on: {
-          init(instance) {
-            console.log("DevMatryca LiquidGL ready.", instance);
-          }
         }
-      });
-    }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeViewer();
+
+        }
+
+      }
+    );
 
 
     /*
-     * START
+     * -----------------------------------------
+     * YEAR
+     * -----------------------------------------
      */
 
-    document.getElementById("year").textContent =
+    document.getElementById(
+      "year"
+    ).textContent =
       new Date().getFullYear();
 
-    loadFanarts();
 
-    window.addEventListener("load", () => {
-      initializeLiquidGlass();
-    });
+    /*
+     * -----------------------------------------
+     * START
+     * -----------------------------------------
+     */
+
+    loadFanarts();
 
   </script>
 
