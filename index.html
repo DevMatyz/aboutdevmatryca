@@ -3,149 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>DevMatryca</title>
 
-  <!-- Windows 7 UI framework -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/7.css"
-  >
+  <!-- Windows 7 UI -->
+  <link rel="stylesheet" href="https://unpkg.com/7.css">
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       min-height: 100%;
     }
 
     body {
       min-height: 100vh;
-      font-family: "Segoe UI", Tahoma, sans-serif;
+      padding: 25px;
 
-      /* Windows 7-ish desktop */
+      font-family:
+        "Segoe UI",
+        Tahoma,
+        sans-serif;
+
       background:
         linear-gradient(
-          rgba(20, 60, 105, 0.12),
-          rgba(0, 0, 0, 0.08)
+          rgba(30, 70, 110, .18),
+          rgba(0, 0, 0, .15)
         ),
-        url("https://i.imgur.com/5KQ7K6M.jpg");
+        #4587bd;
 
       background-size: cover;
-      background-position: center;
       background-attachment: fixed;
-
-      padding: 35px;
-    }
-
-    /* Dark translucent desktop overlay */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-
-      background:
-        radial-gradient(
-          circle at 50% 20%,
-          rgba(255,255,255,.10),
-          transparent 45%
-        );
-
-      z-index: -1;
     }
 
     .desktop {
       width: 100%;
-      min-height: calc(100vh - 70px);
-
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-
-      padding-top: 20px;
+      max-width: 1050px;
+      margin: auto;
     }
 
-    /* Main DevMatryca window */
     .main-window {
-      width: min(950px, 100%);
-    }
-
-    .window-body {
-      overflow: hidden;
+      width: 100%;
     }
 
     .hero {
       display: flex;
       align-items: center;
       gap: 25px;
-
-      padding: 22px;
-
-      min-height: 190px;
+      padding: 25px;
     }
 
     .avatar {
-      width: 130px;
-      height: 130px;
-
-      border-radius: 50%;
-
+      width: 125px;
+      height: 125px;
       object-fit: cover;
-
+      border-radius: 50%;
       border: 3px solid white;
-
-      box-shadow:
-        0 2px 7px rgba(0,0,0,.45);
+      box-shadow: 0 2px 7px rgba(0,0,0,.4);
     }
 
-    .hero-text h1 {
-      margin: 0 0 7px;
-
+    .hero h1 {
+      margin: 0 0 5px;
       font-size: 34px;
       font-weight: 600;
-
-      color: #222;
     }
 
-    .hero-text p {
-      margin: 0 0 18px;
-
+    .hero p {
+      margin: 0 0 15px;
       color: #444;
-      font-size: 15px;
     }
 
-    /* Roblox button */
     .roblox-button {
       display: inline-flex;
-
       align-items: center;
       gap: 8px;
-
       text-decoration: none;
-
-      color: #111;
     }
 
     .roblox-logo {
       width: 18px;
       height: 18px;
-
-      object-fit: contain;
     }
 
-    /* Separator */
     .separator {
       height: 1px;
-
-      margin: 5px 15px 15px;
-
-      background: #c7c7c7;
-
+      margin: 5px 15px 18px;
+      background: #aaa;
       border-top: 1px solid white;
     }
 
@@ -154,14 +99,116 @@
     }
 
     .section-title {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 600;
-
       margin: 10px 0 12px;
     }
 
-    /* Fanart */
-    .fanart-grid {
+    /* =========================
+       FLAPPYDEV
+       ========================= */
+
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .game-info {
+      width: 100%;
+      max-width: 700px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 8px;
+      padding: 6px 10px;
+
+      background: linear-gradient(#fff, #e9e9e9);
+      border: 1px solid #aaa;
+      box-shadow: inset 0 1px white;
+    }
+
+    .score {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .highscore {
+      font-size: 14px;
+    }
+
+    #gameCanvas {
+      display: block;
+
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+
+      background: #75c5e8;
+
+      border: 2px solid #555;
+
+      box-shadow:
+        0 3px 10px rgba(0,0,0,.35);
+
+      cursor: pointer;
+
+      image-rendering: auto;
+    }
+
+    .game-buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .game-help {
+      margin-top: 8px;
+      text-align: center;
+      color: #555;
+      font-size: 12px;
+    }
+
+    /* Game over window */
+    .game-over {
+      display: none;
+
+      position: absolute;
+
+      width: 260px;
+
+      padding: 10px;
+
+      text-align: center;
+
+      background: #eee;
+
+      border: 1px solid #777;
+
+      box-shadow:
+        0 4px 15px rgba(0,0,0,.4);
+    }
+
+    .game-over.show {
+      display: block;
+    }
+
+    .game-over h3 {
+      margin: 5px 0 10px;
+      font-size: 20px;
+    }
+
+    .game-over p {
+      margin: 5px;
+    }
+
+    /* =========================
+       FAVOURITE GAMES
+       ========================= */
+
+    .games-grid {
       display: grid;
 
       grid-template-columns:
@@ -175,12 +222,10 @@
       align-items: start;
     }
 
-    .fanart {
+    .game-card {
       position: relative;
 
       padding: 4px;
-
-      cursor: pointer;
 
       background: #f3f3f3;
 
@@ -191,19 +236,21 @@
       box-shadow:
         0 1px 3px rgba(0,0,0,.3);
 
+      cursor: pointer;
+
       transition:
         transform .12s ease,
         box-shadow .12s ease;
     }
 
-    .fanart:hover {
+    .game-card:hover {
       transform: translateY(-2px);
 
       box-shadow:
-        0 4px 9px rgba(0,0,0,.35);
+        0 4px 10px rgba(0,0,0,.35);
     }
 
-    .fanart img {
+    .game-card img {
       display: block;
 
       width: 100%;
@@ -212,7 +259,7 @@
       border: 1px solid #aaa;
     }
 
-    .fanart-label {
+    .game-label {
       position: absolute;
 
       left: 7px;
@@ -229,8 +276,9 @@
       border-radius: 2px;
     }
 
-    /* Empty fanart message */
     .empty {
+      grid-column: 1 / -1;
+
       padding: 25px;
 
       text-align: center;
@@ -242,7 +290,10 @@
       background: rgba(255,255,255,.5);
     }
 
-    /* Thanks */
+    /* =========================
+       THANKS
+       ========================= */
+
     .thanks {
       padding: 15px;
 
@@ -254,8 +305,7 @@
 
       border: 1px solid #aaa;
 
-      box-shadow:
-        inset 0 1px white;
+      box-shadow: inset 0 1px white;
     }
 
     .thanks p {
@@ -264,9 +314,7 @@
 
     .names {
       display: flex;
-
       flex-wrap: wrap;
-
       gap: 7px;
     }
 
@@ -283,27 +331,24 @@
           #e8e8e8
         );
 
-      box-shadow:
-        inset 0 1px white;
+      box-shadow: inset 0 1px white;
 
       font-size: 13px;
     }
 
-    /* Footer */
     .footer {
       text-align: center;
-
       color: #444;
-
       padding: 10px;
-
       font-size: 12px;
     }
 
-    /* Fanart popup */
+    /* =========================
+       IMAGE VIEWER
+       ========================= */
+
     .viewer {
       position: fixed;
-
       inset: 0;
 
       display: none;
@@ -311,8 +356,9 @@
       align-items: center;
       justify-content: center;
 
-      background:
-        rgba(0, 0, 0, .42);
+      padding: 15px;
+
+      background: rgba(0,0,0,.45);
 
       z-index: 1000;
     }
@@ -322,7 +368,7 @@
     }
 
     .viewer-window {
-      width: min(1000px, 94vw);
+      width: min(1000px, 95vw);
       max-height: 92vh;
     }
 
@@ -347,28 +393,19 @@
       object-fit: contain;
 
       border: 1px solid #888;
-
-      box-shadow:
-        0 2px 8px rgba(0,0,0,.35);
     }
 
-    /* Responsive */
     @media (max-width: 600px) {
       body {
-        padding: 10px;
-      }
-
-      .desktop {
-        min-height: calc(100vh - 20px);
+        padding: 8px;
       }
 
       .hero {
         flex-direction: column;
-
         text-align: center;
       }
 
-      .hero-text h1 {
+      .hero h1 {
         font-size: 28px;
       }
 
@@ -377,7 +414,7 @@
         height: 110px;
       }
 
-      .fanart-grid {
+      .games-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -386,154 +423,254 @@
 
 <body>
 
-  <div class="desktop">
+<div class="desktop">
 
-    <!-- Main application window -->
-    <div class="window active main-window">
+  <!-- =========================
+       DEVMatryca WINDOW
+       ========================= -->
 
-      <div class="title-bar">
-        <div class="title-bar-text">
-          DevMatryca
-        </div>
+  <div class="window active main-window">
 
-        <div class="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
-        </div>
+    <div class="title-bar">
+
+      <div class="title-bar-text">
+        DevMatryca
       </div>
 
-      <div class="window-body has-space">
-
-        <!-- Profile -->
-        <section class="hero">
-
-          <img
-            src="avatar.png"
-            alt="DevMatryca avatar"
-            class="avatar"
-          >
-
-          <div class="hero-text">
-
-            <h1>DevMatryca</h1>
-
-            <p>
-              Developer, creator and fanart enjoyer.
-            </p>
-
-            <a
-              class="button roblox-button"
-              href="https://www.roblox.com/users/4963370209/profile"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                class="roblox-logo"
-                src="https://api.iconify.design/simple-icons:roblox.svg"
-                alt=""
-              >
-
-              Roblox
-            </a>
-
-          </div>
-
-        </section>
-
-        <div class="separator"></div>
-
-        <!-- Fanarts -->
-        <section class="section">
-
-          <div class="section-title">
-            Fanarts
-          </div>
-
-          <div
-            id="fanart-grid"
-            class="fanart-grid"
-          ></div>
-
-        </section>
-
-        <div class="separator"></div>
-
-        <!-- Thanks -->
-        <section class="section">
-
-          <div class="section-title">
-            Thank you to
-          </div>
-
-          <div class="thanks">
-
-            <p>
-              Thanks to everyone who helped, inspired,
-              or contributed to DevMatryca.
-            </p>
-
-            <div class="names">
-
-              <span class="name">Siri</span>
-              <span class="name">Moony</span>
-              <span class="name">T420User</span>
-              <span class="name">artlurg431</span>
-              <span class="name">Vadimmka</span>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        <div class="footer">
-          © <span id="year"></span> DevMatryca
-        </div>
-
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
       </div>
+
     </div>
 
-  </div>
+    <div class="window-body has-space">
 
+      <!-- PROFILE -->
 
-  <!-- Fanart viewer -->
-  <div
-    id="viewer"
-    class="viewer"
-  >
-
-    <div
-      class="window active viewer-window"
-    >
-
-      <div class="title-bar">
-
-        <div
-          id="viewer-title"
-          class="title-bar-text"
-        >
-          Fanart
-        </div>
-
-        <div class="title-bar-controls">
-
-          <button
-            aria-label="Close"
-            id="viewer-close"
-          ></button>
-
-        </div>
-
-      </div>
-
-      <div class="window-body viewer-content">
+      <section class="hero">
 
         <img
-          id="viewer-image"
-          src=""
-          alt=""
+          src="avatar.png"
+          alt="DevMatryca avatar"
+          class="avatar"
         >
+
+        <div>
+
+          <h1>DevMatryca</h1>
+
+          <p>
+            Developer, creator and gamer.
+          </p>
+
+          <a
+            class="button roblox-button"
+            href="https://www.roblox.com/users/4963370209/profile"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+
+            <img
+              class="roblox-logo"
+              src="https://api.iconify.design/simple-icons:roblox.svg"
+              alt=""
+            >
+
+            Roblox
+
+          </a>
+
+        </div>
+
+      </section>
+
+
+      <div class="separator"></div>
+
+
+      <!-- =========================
+           FLAPPYDEV
+           ========================= -->
+
+      <section class="section">
+
+        <div class="section-title">
+          FlappyDev
+        </div>
+
+        <div class="game-container">
+
+          <div class="game-info">
+
+            <span class="score">
+              Score:
+              <span id="score">0</span>
+            </span>
+
+            <span class="highscore">
+              Highscore:
+              <span id="highscore">0</span>
+            </span>
+
+          </div>
+
+
+          <canvas
+            id="gameCanvas"
+            width="700"
+            height="500"
+          ></canvas>
+
+
+          <div class="game-buttons">
+
+            <button
+              class="button"
+              id="startButton"
+            >
+              Start Game
+            </button>
+
+            <button
+              class="button"
+              id="restartButton"
+            >
+              Restart
+            </button>
+
+          </div>
+
+
+          <div class="game-help">
+            Press SPACE, click, or tap the game to flap.
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div class="separator"></div>
+
+
+      <!-- =========================
+           FAVOURITE GAMES
+           ========================= -->
+
+      <section class="section">
+
+        <div class="section-title">
+          My Favourite Games
+        </div>
+
+        <div
+          id="games-grid"
+          class="games-grid"
+        ></div>
+
+      </section>
+
+
+      <div class="separator"></div>
+
+
+      <!-- =========================
+           THANKS
+           ========================= -->
+
+      <section class="section">
+
+        <div class="section-title">
+          Thank you to
+        </div>
+
+        <div class="thanks">
+
+          <p>
+            Thanks to everyone who helped, inspired,
+            or contributed along the way.
+          </p>
+
+          <div class="names">
+
+            <span class="name">Siri</span>
+            <span class="name">Moony</span>
+            <span class="name">T420User</span>
+            <span class="name">artlurg431</span>
+            <span class="name">Vadimmka</span>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <div class="footer">
+        © <span id="year"></span> DevMatryca
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     GAME OVER WINDOW
+     ========================= -->
+
+<div
+  id="gameOver"
+  class="viewer"
+>
+
+  <div class="window active">
+
+    <div class="title-bar">
+
+      <div class="title-bar-text">
+        FlappyDev
+      </div>
+
+      <div class="title-bar-controls">
+
+        <button
+          aria-label="Close"
+          id="closeGameOver"
+        ></button>
+
+      </div>
+
+    </div>
+
+    <div class="window-body has-space">
+
+      <h3 style="text-align:center;">
+        Game Over
+      </h3>
+
+      <p style="text-align:center;">
+        Score:
+        <strong id="finalScore">0</strong>
+      </p>
+
+      <p style="text-align:center;">
+        Highscore:
+        <strong id="finalHighscore">0</strong>
+      </p>
+
+      <div style="text-align:center; margin-top:15px;">
+
+        <button
+          class="button"
+          id="gameOverRestart"
+        >
+          Play Again
+        </button>
 
       </div>
 
@@ -541,254 +678,1053 @@
 
   </div>
 
-
-  <script>
-
-    /*
-     * -----------------------------------------
-     * FANART AUTO DISCOVERY
-     * -----------------------------------------
-     *
-     * Automatically loads:
-     *
-     * fanart1.png
-     * fanart2.png
-     * fanart3.png
-     * ...
-     *
-     * No need to edit the HTML when adding art.
-     */
-
-    const grid =
-      document.getElementById("fanart-grid");
-
-    const MAX_FANARTS = 100;
-
-    let found = 0;
+</div>
 
 
-    function createFanart(number) {
+<!-- =========================
+     FAVOURITE GAME VIEWER
+     ========================= -->
 
-      return new Promise(resolve => {
+<div
+  id="viewer"
+  class="viewer"
+>
 
-        const src =
-          `fanart${number}.png`;
+  <div class="window active viewer-window">
 
-        const test =
-          new Image();
+    <div class="title-bar">
 
-        test.onload = () => {
+      <div
+        id="viewerTitle"
+        class="title-bar-text"
+      >
+        Game
+      </div>
 
-          const card =
-            document.createElement("div");
+      <div class="title-bar-controls">
 
-          card.className =
-            "fanart";
+        <button
+          aria-label="Close"
+          id="viewerClose"
+        ></button>
 
-          const img =
-            document.createElement("img");
+      </div>
 
-          img.src = src;
+    </div>
 
-          img.alt =
-            `Fanart ${number}`;
+    <div class="window-body viewer-content">
 
-          img.loading =
-            "lazy";
+      <img
+        id="viewerImage"
+        src=""
+        alt=""
+      >
 
+    </div>
 
-          const label =
-            document.createElement("span");
+  </div>
 
-          label.className =
-            "fanart-label";
-
-          label.textContent =
-            `fanart${number}.png`;
-
-
-          card.appendChild(img);
-          card.appendChild(label);
-
-
-          card.addEventListener(
-            "click",
-            () => openViewer(
-              src,
-              `Fanart ${number}`
-            )
-          );
+</div>
 
 
-          grid.appendChild(card);
+<script>
 
-          found++;
+  /* =========================================
+     FLAPPYDEV
+     ========================================= */
 
-          resolve(true);
+  const canvas =
+    document.getElementById("gameCanvas");
 
-        };
-
-
-        test.onerror = () => {
-          resolve(false);
-        };
-
-
-        test.src = src;
-
-      });
-
-    }
+  const ctx =
+    canvas.getContext("2d");
 
 
-    async function loadFanarts() {
+  const playerImage =
+    new Image();
 
-      const jobs = [];
-
-      for (
-        let i = 1;
-        i <= MAX_FANARTS;
-        i++
-      ) {
-
-        jobs.push(
-          createFanart(i)
-        );
-
-      }
-
-      await Promise.all(jobs);
+  playerImage.src =
+    "flappydev.png";
 
 
-      if (found === 0) {
-
-        grid.innerHTML = `
-          <div class="empty">
-            No fanarts found.<br><br>
-
-            Add images named:
-            <strong>fanart1.png</strong>,
-            <strong>fanart2.png</strong>,
-            <strong>fanart3.png</strong>...
-          </div>
-        `;
-
-      }
-
-    }
+  let player = {
+    x: 130,
+    y: 240,
+    width: 48,
+    height: 48,
+    velocity: 0
+  };
 
 
-    /*
-     * -----------------------------------------
-     * FANART VIEWER
-     * -----------------------------------------
-     */
+  let pipes = [];
 
-    const viewer =
-      document.getElementById("viewer");
+  let score = 0;
 
-    const viewerImage =
-      document.getElementById("viewer-image");
-
-    const viewerTitle =
-      document.getElementById("viewer-title");
-
-    const viewerClose =
-      document.getElementById("viewer-close");
+  let highscore =
+    Number(
+      localStorage.getItem(
+        "devmatryca_flappydev_highscore"
+      )
+    ) || 0;
 
 
-    function openViewer(
-      src,
-      title
+  let gameRunning = false;
+
+  let gameStarted = false;
+
+  let animationFrame;
+
+
+  const gravity = 0.42;
+
+  const flapPower = -7.5;
+
+  const pipeWidth = 70;
+
+  const pipeGap = 155;
+
+  const pipeSpeed = 3;
+
+
+  document.getElementById(
+    "highscore"
+  ).textContent = highscore;
+
+
+  /*
+   * Background
+   */
+
+  function drawBackground() {
+
+    const gradient =
+      ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        canvas.height
+      );
+
+    gradient.addColorStop(
+      0,
+      "#62b8e8"
+    );
+
+    gradient.addColorStop(
+      1,
+      "#c5edff"
+    );
+
+    ctx.fillStyle =
+      gradient;
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+
+    /* Clouds */
+
+    ctx.fillStyle =
+      "rgba(255,255,255,.75)";
+
+    drawCloud(100, 80, 1);
+    drawCloud(480, 120, .8);
+    drawCloud(320, 40, .55);
+
+
+    /* Ground */
+
+    ctx.fillStyle =
+      "#78b84c";
+
+    ctx.fillRect(
+      0,
+      canvas.height - 45,
+      canvas.width,
+      45
+    );
+
+    ctx.fillStyle =
+      "#9bce65";
+
+    ctx.fillRect(
+      0,
+      canvas.height - 45,
+      canvas.width,
+      7
+    );
+
+  }
+
+
+  function drawCloud(
+    x,
+    y,
+    scale
+  ) {
+
+    ctx.beginPath();
+
+    ctx.arc(
+      x,
+      y,
+      22 * scale,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.arc(
+      x + 25 * scale,
+      y - 10 * scale,
+      28 * scale,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.arc(
+      x + 55 * scale,
+      y,
+      22 * scale,
+      0,
+      Math.PI * 2
+    );
+
+    ctx.fill();
+
+  }
+
+
+  /*
+   * Pipes
+   */
+
+  function createPipe() {
+
+    const minTop = 60;
+
+    const maxTop =
+      canvas.height -
+      pipeGap -
+      100;
+
+    const top =
+      Math.random() *
+      (maxTop - minTop) +
+      minTop;
+
+
+    pipes.push({
+
+      x: canvas.width,
+
+      top: top,
+
+      bottom:
+        top + pipeGap,
+
+      passed: false
+
+    });
+
+  }
+
+
+  function drawPipe(pipe) {
+
+    const pipeGradient =
+      ctx.createLinearGradient(
+        pipe.x,
+        0,
+        pipe.x + pipeWidth,
+        0
+      );
+
+    pipeGradient.addColorStop(
+      0,
+      "#3e9b36"
+    );
+
+    pipeGradient.addColorStop(
+      .45,
+      "#83d05d"
+    );
+
+    pipeGradient.addColorStop(
+      1,
+      "#287d2d"
+    );
+
+
+    ctx.fillStyle =
+      pipeGradient;
+
+
+    /* Top pipe */
+
+    ctx.fillRect(
+      pipe.x,
+      0,
+      pipeWidth,
+      pipe.top
+    );
+
+
+    /* Top cap */
+
+    ctx.fillRect(
+      pipe.x - 5,
+      pipe.top - 18,
+      pipeWidth + 10,
+      18
+    );
+
+
+    /* Bottom pipe */
+
+    ctx.fillRect(
+      pipe.x,
+      pipe.bottom,
+      pipeWidth,
+      canvas.height -
+      pipe.bottom -
+      45
+    );
+
+
+    /* Bottom cap */
+
+    ctx.fillRect(
+      pipe.x - 5,
+      pipe.bottom,
+      pipeWidth + 10,
+      18
+    );
+
+  }
+
+
+  /*
+   * Player
+   */
+
+  function drawPlayer() {
+
+    ctx.save();
+
+    const angle =
+      Math.min(
+        Math.max(
+          player.velocity * .055,
+          -.35
+        ),
+        1
+      );
+
+    ctx.translate(
+      player.x + player.width / 2,
+      player.y + player.height / 2
+    );
+
+    ctx.rotate(angle);
+
+    if (
+      playerImage.complete &&
+      playerImage.naturalWidth > 0
     ) {
 
-      viewerImage.src =
-        src;
-
-      viewerImage.alt =
-        title;
-
-      viewerTitle.textContent =
-        title;
-
-      viewer.classList.add(
-        "active"
+      ctx.drawImage(
+        playerImage,
+        -player.width / 2,
+        -player.height / 2,
+        player.width,
+        player.height
       );
+
+    } else {
+
+      /* Fallback */
+
+      ctx.fillStyle =
+        "#ffcc00";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        0,
+        0,
+        player.width / 2,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
 
     }
 
+    ctx.restore();
 
-    function closeViewer() {
-
-      viewer.classList.remove(
-        "active"
-      );
-
-      viewerImage.src =
-        "";
-
-    }
+  }
 
 
-    viewerClose.addEventListener(
-      "click",
-      closeViewer
+  /*
+   * Collision
+   */
+
+  function collision(pipe) {
+
+    const padding = 7;
+
+    const px =
+      player.x + padding;
+
+    const py =
+      player.y + padding;
+
+    const pw =
+      player.width -
+      padding * 2;
+
+    const ph =
+      player.height -
+      padding * 2;
+
+
+    const hitPipeX =
+      px + pw >
+      pipe.x &&
+      px <
+      pipe.x + pipeWidth;
+
+
+    const hitTop =
+      py <
+      pipe.top;
+
+
+    const hitBottom =
+      py + ph >
+      pipe.bottom;
+
+
+    return (
+      hitPipeX &&
+      (hitTop || hitBottom)
     );
 
-
-    viewer.addEventListener(
-      "click",
-      event => {
-
-        if (
-          event.target === viewer
-        ) {
-
-          closeViewer();
-
-        }
-
-      }
-    );
+  }
 
 
-    document.addEventListener(
-      "keydown",
-      event => {
+  /*
+   * Start
+   */
 
-        if (
-          event.key === "Escape"
-        ) {
+  function startGame() {
 
-          closeViewer();
-
-        }
-
-      }
-    );
+    if (gameRunning)
+      return;
 
 
-    /*
-     * -----------------------------------------
-     * YEAR
-     * -----------------------------------------
-     */
+    gameRunning = true;
+
+    gameStarted = true;
+
+    score = 0;
+
+    player.y = 240;
+
+    player.velocity = 0;
+
+    pipes = [];
+
 
     document.getElementById(
-      "year"
-    ).textContent =
-      new Date().getFullYear();
+      "score"
+    ).textContent = "0";
+
+
+    createPipe();
+
+    lastPipeTime =
+      performance.now();
+
+
+    animationFrame =
+      requestAnimationFrame(
+        gameLoop
+      );
+
+  }
+
+
+  /*
+   * Flap
+   */
+
+  function flap() {
+
+    if (!gameRunning) {
+
+      startGame();
+
+      return;
+
+    }
+
+    player.velocity =
+      flapPower;
+
+  }
+
+
+  /*
+   * Game loop
+   */
+
+  let lastPipeTime = 0;
+
+
+  function gameLoop(timestamp) {
+
+    if (!gameRunning)
+      return;
+
+
+    player.velocity +=
+      gravity;
+
+    player.y +=
+      player.velocity;
+
+
+    if (
+      timestamp -
+      lastPipeTime >
+      1700
+    ) {
+
+      createPipe();
+
+      lastPipeTime =
+        timestamp;
+
+    }
+
+
+    pipes.forEach(
+      pipe => {
+
+        pipe.x -=
+          pipeSpeed;
+
+
+        if (
+          !pipe.passed &&
+          pipe.x +
+          pipeWidth <
+          player.x
+        ) {
+
+          pipe.passed = true;
+
+          score++;
+
+          document.getElementById(
+            "score"
+          ).textContent =
+            score;
+
+        }
+
+      }
+    );
+
+
+    pipes =
+      pipes.filter(
+        pipe =>
+          pipe.x +
+          pipeWidth >
+          -20
+      );
 
 
     /*
-     * -----------------------------------------
-     * START
-     * -----------------------------------------
+     * Collision with ground / sky
      */
 
-    loadFanarts();
+    if (
+      player.y < 0 ||
+      player.y +
+      player.height >
+      canvas.height - 45
+    ) {
 
-  </script>
+      endGame();
+
+      return;
+
+    }
+
+
+    for (
+      const pipe of pipes
+    ) {
+
+      if (
+        collision(pipe)
+      ) {
+
+        endGame();
+
+        return;
+
+      }
+
+    }
+
+
+    drawBackground();
+
+
+    pipes.forEach(
+      drawPipe
+    );
+
+
+    drawPlayer();
+
+
+    animationFrame =
+      requestAnimationFrame(
+        gameLoop
+      );
+
+  }
+
+
+  /*
+   * End game
+   */
+
+  function endGame() {
+
+    gameRunning = false;
+
+
+    if (
+      score >
+      highscore
+    ) {
+
+      highscore =
+        score;
+
+      localStorage.setItem(
+        "devmatryca_flappydev_highscore",
+        highscore
+      );
+
+    }
+
+
+    document.getElementById(
+      "highscore"
+    ).textContent =
+      highscore;
+
+
+    document.getElementById(
+      "finalScore"
+    ).textContent =
+      score;
+
+
+    document.getElementById(
+      "finalHighscore"
+    ).textContent =
+      highscore;
+
+
+    document.getElementById(
+      "gameOver"
+    ).classList.add(
+      "active"
+    );
+
+  }
+
+
+  /*
+   * Restart
+   */
+
+  function restartGame() {
+
+    document.getElementById(
+      "gameOver"
+    ).classList.remove(
+      "active"
+    );
+
+    gameRunning = false;
+
+    startGame();
+
+  }
+
+
+  document.getElementById(
+    "startButton"
+  ).addEventListener(
+    "click",
+    startGame
+  );
+
+
+  document.getElementById(
+    "restartButton"
+  ).addEventListener(
+    "click",
+    restartGame
+  );
+
+
+  document.getElementById(
+    "gameOverRestart"
+  ).addEventListener(
+    "click",
+    restartGame
+  );
+
+
+  document.getElementById(
+    "closeGameOver"
+  ).addEventListener(
+    "click",
+    () => {
+
+      document.getElementById(
+        "gameOver"
+      ).classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  canvas.addEventListener(
+    "click",
+    flap
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.code === "Space"
+      ) {
+
+        event.preventDefault();
+
+        flap();
+
+      }
+
+    }
+  );
+
+
+  /*
+   * Touch controls
+   */
+
+  canvas.addEventListener(
+    "touchstart",
+    event => {
+
+      event.preventDefault();
+
+      flap();
+
+    },
+    {
+      passive: false
+    }
+  );
+
+
+  /*
+   * Draw initial screen
+   */
+
+  drawBackground();
+
+  drawPlayer();
+
+
+  /* =========================================
+     MY FAVOURITE GAMES
+     ========================================= */
+
+  const gamesGrid =
+    document.getElementById(
+      "games-grid"
+    );
+
+
+  const MAX_GAMES = 100;
+
+  let foundGames = 0;
+
+
+  function loadGameImage(number) {
+
+    return new Promise(resolve => {
+
+      const src =
+        `game${number}.png`;
+
+      const image =
+        new Image();
+
+
+      image.onload = () => {
+
+        const card =
+          document.createElement("div");
+
+        card.className =
+          "game-card";
+
+
+        const img =
+          document.createElement("img");
+
+        img.src =
+          src;
+
+        img.alt =
+          `Favourite game ${number}`;
+
+        img.loading =
+          "lazy";
+
+
+        const label =
+          document.createElement("span");
+
+        label.className =
+          "game-label";
+
+        label.textContent =
+          `game${number}.png`;
+
+
+        card.appendChild(img);
+
+        card.appendChild(label);
+
+
+        card.addEventListener(
+          "click",
+          () => {
+
+            openGameViewer(
+              src,
+              `Favourite Game ${number}`
+            );
+
+          }
+        );
+
+
+        gamesGrid.appendChild(
+          card
+        );
+
+
+        foundGames++;
+
+        resolve(true);
+
+      };
+
+
+      image.onerror = () => {
+
+        resolve(false);
+
+      };
+
+
+      image.src =
+        src;
+
+    });
+
+  }
+
+
+  async function loadFavouriteGames() {
+
+    const jobs = [];
+
+
+    for (
+      let i = 1;
+      i <= MAX_GAMES;
+      i++
+    ) {
+
+      jobs.push(
+        loadGameImage(i)
+      );
+
+    }
+
+
+    await Promise.all(
+      jobs
+    );
+
+
+    if (
+      foundGames === 0
+    ) {
+
+      gamesGrid.innerHTML = `
+        <div class="empty">
+          No favourite games found.<br><br>
+
+          Add images named
+          <strong>game1.png</strong>,
+          <strong>game2.png</strong>,
+          <strong>game3.png</strong>...
+        </div>
+      `;
+
+    }
+
+  }
+
+
+  /* =========================================
+     GAME IMAGE VIEWER
+     ========================================= */
+
+  const viewer =
+    document.getElementById(
+      "viewer"
+    );
+
+  const viewerImage =
+    document.getElementById(
+      "viewerImage"
+    );
+
+  const viewerTitle =
+    document.getElementById(
+      "viewerTitle"
+    );
+
+
+  function openGameViewer(
+    src,
+    title
+  ) {
+
+    viewerImage.src =
+      src;
+
+    viewerImage.alt =
+      title;
+
+    viewerTitle.textContent =
+      title;
+
+    viewer.classList.add(
+      "active"
+    );
+
+  }
+
+
+  function closeGameViewer() {
+
+    viewer.classList.remove(
+      "active"
+    );
+
+    viewerImage.src =
+      "";
+
+  }
+
+
+  document.getElementById(
+    "viewerClose"
+  ).addEventListener(
+    "click",
+    closeGameViewer
+  );
+
+
+  viewer.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target === viewer
+      ) {
+
+        closeGameViewer();
+
+      }
+
+    }
+  );
+
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Escape"
+      ) {
+
+        closeGameViewer();
+
+      }
+
+    }
+  );
+
+
+  /* =========================================
+     YEAR
+     ========================================= */
+
+  document.getElementById(
+    "year"
+  ).textContent =
+    new Date().getFullYear();
+
+
+  /* =========================================
+     LOAD EVERYTHING
+     ========================================= */
+
+  loadFavouriteGames();
+
+</script>
 
 </body>
 </html>
