@@ -6,7 +6,6 @@
 
   <title>DevMatryca</title>
 
-  <!-- 7.css Windows 7 UI -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/7.css@0.21.1/dist/7.css"
@@ -25,15 +24,18 @@
 
     body {
       min-height: 100vh;
-      padding: 25px;
+      padding: 20px;
 
-      font-family: "Segoe UI", Tahoma, sans-serif;
+      font-family:
+        "Segoe UI",
+        Tahoma,
+        sans-serif;
 
       background:
         linear-gradient(
           135deg,
           #1769aa,
-          #5aa8df 50%,
+          #65b5e8,
           #1769aa
         );
 
@@ -48,7 +50,7 @@
     .page {
       width: 100%;
       max-width: 1100px;
-      margin: 0 auto;
+      margin: auto;
     }
 
     .main-window {
@@ -60,7 +62,8 @@
     .profile {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 22px;
+
       padding: 20px;
     }
 
@@ -68,9 +71,11 @@
       width: 120px;
       height: 120px;
 
-      border-radius: 50%;
+      flex-shrink: 0;
+
       object-fit: cover;
 
+      border-radius: 50%;
       border: 3px solid white;
 
       box-shadow:
@@ -79,16 +84,19 @@
 
     .profile-info h1 {
       margin: 0 0 5px;
+
       font-size: 32px;
     }
 
     .profile-info p {
       margin: 0 0 14px;
+
       color: #444;
     }
 
     .roblox-link {
       display: inline-flex;
+
       align-items: center;
       gap: 7px;
 
@@ -102,6 +110,7 @@
 
     .separator {
       height: 1px;
+
       margin: 3px 15px 18px;
 
       background: #aaa;
@@ -121,7 +130,7 @@
       font-weight: 600;
     }
 
-    /* GAME LAUNCH BUTTONS */
+    /* GAMES */
 
     .game-launchers {
       display: grid;
@@ -137,6 +146,7 @@
 
     .game-launcher {
       display: flex;
+
       align-items: center;
 
       gap: 12px;
@@ -179,10 +189,11 @@
       margin-top: 4px;
 
       font-size: 12px;
+
       color: #555;
     }
 
-    /* GALLERIES */
+    /* GALLERY */
 
     .gallery {
       display: grid;
@@ -215,7 +226,7 @@
 
     .gallery-item:hover {
       box-shadow:
-        0 3px 9px rgba(0, 0, 0, .4);
+        0 3px 9px rgba(0, 0, 0, .45);
     }
 
     .gallery-item img {
@@ -231,6 +242,7 @@
       padding: 5px 4px 3px;
 
       font-size: 12px;
+
       text-align: center;
 
       color: #444;
@@ -247,7 +259,7 @@
 
       border: 1px dashed #999;
 
-      background: rgba(255,255,255,.65);
+      background: rgba(255,255,255,.7);
     }
 
     /* THANK YOU */
@@ -270,7 +282,9 @@
 
     .thanks-list {
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 7px;
     }
 
@@ -297,12 +311,14 @@
       text-align: center;
 
       color: #555;
+
       font-size: 12px;
     }
 
-    /* GAME WINDOWS */
+    /* OVERLAYS */
 
-    .game-overlay {
+    .game-overlay,
+    .viewer-overlay {
       position: fixed;
 
       inset: 0;
@@ -312,15 +328,16 @@
       align-items: center;
       justify-content: center;
 
-      padding: 15px;
+      padding: 12px;
 
       background:
-        rgba(0, 0, 0, .42);
+        rgba(0, 0, 0, .45);
 
       z-index: 1000;
     }
 
-    .game-overlay.open {
+    .game-overlay.open,
+    .viewer-overlay.open {
       display: flex;
     }
 
@@ -334,7 +351,9 @@
 
     .game-window-body {
       display: flex;
+
       flex-direction: column;
+
       align-items: center;
 
       padding: 10px;
@@ -345,6 +364,7 @@
       max-width: 700px;
 
       display: flex;
+
       justify-content: space-between;
 
       margin-bottom: 8px;
@@ -365,13 +385,14 @@
 
       border: 2px solid #555;
 
-      cursor: pointer;
+      background: white;
 
       touch-action: none;
     }
 
     .game-buttons {
       display: flex;
+
       gap: 7px;
 
       margin-top: 9px;
@@ -380,45 +401,24 @@
     .game-help {
       margin-top: 7px;
 
-      color: #555;
-
       font-size: 12px;
+
+      color: #555;
 
       text-align: center;
     }
 
-    /* IMAGE VIEWER */
-
-    .viewer-overlay {
-      position: fixed;
-
-      inset: 0;
-
-      display: none;
-
-      align-items: center;
-      justify-content: center;
-
-      padding: 15px;
-
-      background:
-        rgba(0,0,0,.5);
-
-      z-index: 2000;
-    }
-
-    .viewer-overlay.open {
-      display: flex;
-    }
+    /* VIEWER */
 
     .viewer-window {
       width: min(1000px, 96vw);
 
-      max-height: 94vh;
+      max-height: 95vh;
     }
 
     .viewer-body {
       display: flex;
+
       justify-content: center;
 
       padding: 10px;
@@ -441,12 +441,14 @@
     }
 
     @media (max-width: 600px) {
+
       body {
-        padding: 7px;
+        padding: 6px;
       }
 
       .profile {
         flex-direction: column;
+
         text-align: center;
       }
 
@@ -469,9 +471,7 @@
 
 <div class="page">
 
-  <!-- =====================================
-       MAIN WINDOW
-       ===================================== -->
+  <!-- MAIN WINDOW -->
 
   <div class="window active main-window">
 
@@ -482,6 +482,7 @@
       </div>
 
       <div class="title-bar-controls">
+
         <button
           type="button"
           aria-label="Minimize"
@@ -496,6 +497,7 @@
           type="button"
           aria-label="Close"
         ></button>
+
       </div>
 
     </div>
@@ -508,14 +510,16 @@
       <div class="profile">
 
         <img
-          class="avatar"
           src="avatar.png"
+          class="avatar"
           alt="DevMatryca"
         >
 
         <div class="profile-info">
 
-          <h1>DevMatryca</h1>
+          <h1>
+            DevMatryca
+          </h1>
 
           <p>
             Developer, creator and gamer.
@@ -557,14 +561,14 @@
         <div class="game-launchers">
 
           <button
-            type="button"
             class="button game-launcher"
             id="flappyButton"
+            type="button"
           >
 
             <img
-              class="game-launcher-icon"
               src="flappydev.png"
+              class="game-launcher-icon"
               alt="FlappyDev"
             >
 
@@ -575,7 +579,7 @@
               </span>
 
               <span class="launcher-description">
-                Flappy Bird, but with DevMatryca.
+                Flappy Bird with DevMatryca.
               </span>
 
             </span>
@@ -584,14 +588,14 @@
 
 
           <button
-            type="button"
             class="button game-launcher"
             id="snakeButton"
+            type="button"
           >
 
             <img
-              class="game-launcher-icon"
               src="flappydev.png"
+              class="game-launcher-icon"
               alt="DevSnake"
             >
 
@@ -626,9 +630,15 @@
         </div>
 
         <div
-          id="fanartGallery"
           class="gallery"
-        ></div>
+          id="fanartGallery"
+        >
+
+          <div class="gallery-message">
+            Loading fanarts...
+          </div>
+
+        </div>
 
       </section>
 
@@ -645,9 +655,15 @@
         </div>
 
         <div
-          id="gameGallery"
           class="gallery"
-        ></div>
+          id="gameGallery"
+        >
+
+          <div class="gallery-message">
+            Loading games...
+          </div>
+
+        </div>
 
       </section>
 
@@ -655,7 +671,7 @@
       <div class="separator"></div>
 
 
-      <!-- THANKS -->
+      <!-- THANK YOU -->
 
       <section class="section">
 
@@ -666,8 +682,8 @@
         <div class="thanks-box">
 
           <p>
-            Thank you to everyone who helped and supported
-            DevMatryca.
+            Thank you to everyone who helped
+            and supported DevMatryca.
           </p>
 
           <div class="thanks-list">
@@ -700,7 +716,8 @@
 
 
       <div class="footer">
-        © <span id="year"></span> DevMatryca
+        © <span id="year"></span>
+        DevMatryca
       </div>
 
     </div>
@@ -710,9 +727,9 @@
 </div>
 
 
-<!-- =====================================
-     FLAPPYDEV WINDOW
-     ===================================== -->
+<!-- ========================================
+     FLAPPYDEV
+     ======================================== -->
 
 <div
   class="game-overlay"
@@ -772,17 +789,17 @@
       <div class="game-buttons">
 
         <button
-          type="button"
           class="button"
           id="startFlappy"
+          type="button"
         >
           Start
         </button>
 
         <button
-          type="button"
           class="button"
           id="restartFlappy"
+          type="button"
         >
           Restart
         </button>
@@ -801,9 +818,9 @@
 </div>
 
 
-<!-- =====================================
-     DEVSNAKE WINDOW
-     ===================================== -->
+<!-- ========================================
+     DEVSNAKE
+     ======================================== -->
 
 <div
   class="game-overlay"
@@ -863,17 +880,17 @@
       <div class="game-buttons">
 
         <button
-          type="button"
           class="button"
           id="startSnake"
+          type="button"
         >
           Start
         </button>
 
         <button
-          type="button"
           class="button"
           id="restartSnake"
+          type="button"
         >
           Restart
         </button>
@@ -892,9 +909,9 @@
 </div>
 
 
-<!-- =====================================
+<!-- ========================================
      IMAGE VIEWER
-     ===================================== -->
+     ======================================== -->
 
 <div
   class="viewer-overlay"
@@ -941,177 +958,309 @@
 
 
 <script>
-"use strict";
+
+/* ==========================================
+   CONFIGURATION
+   ========================================== */
+
+const GITHUB_API =
+  "https://api.github.com/repos/DevMatyz/aboutdevmatryca/contents/";
+
+const RAW_BASE =
+  "https://raw.githubusercontent.com/DevMatyz/aboutdevmatryca/main/";
+
 
 /* ==========================================
    BASIC
    ========================================== */
 
-document.getElementById("year").textContent =
+document.getElementById(
+  "year"
+).textContent =
   new Date().getFullYear();
 
 
 /* ==========================================
-   IMAGE GALLERIES
+   GITHUB IMAGE LOADER
    ========================================== */
 
-/*
-  Browsers cannot reliably ask a normal static
-  website "which files exist in this folder".
+async function loadRepositoryImages() {
 
-  Therefore we test filenames one by one.
+  const fanartGallery =
+    document.getElementById(
+      "fanartGallery"
+    );
 
-  Expected:
-    fanart1.png
-    fanart2.png
-    fanart3.png
-
-  and:
-
-    game1.png
-    game2.png
-    game3.png
-*/
-
-function findImages(prefix, containerId) {
-
-  const container =
-    document.getElementById(containerId);
-
-  let found = 0;
-
-  const MAX_IMAGES = 100;
+  const gameGallery =
+    document.getElementById(
+      "gameGallery"
+    );
 
 
-  for (
-    let i = 1;
-    i <= MAX_IMAGES;
-    i++
-  ) {
+  try {
 
-    const number = i;
-
-    const image =
-      new Image();
-
-    image.alt =
-      prefix + number;
-
-
-    image.onload = function () {
-
-      found++;
-
-      const item =
-        document.createElement("figure");
-
-      item.className =
-        "gallery-item";
-
-
-      const displayedImage =
-        document.createElement("img");
-
-      displayedImage.src =
-        prefix + number + ".png";
-
-      displayedImage.alt =
-        prefix + number;
-
-
-      const caption =
-        document.createElement("figcaption");
-
-      caption.className =
-        "gallery-caption";
-
-      caption.textContent =
-        prefix + number + ".png";
-
-
-      item.appendChild(
-        displayedImage
-      );
-
-      item.appendChild(
-        caption
-      );
-
-
-      item.addEventListener(
-        "click",
-        function () {
-
-          openViewer(
-            displayedImage.src,
-            prefix + number + ".png"
-          );
-
+    const response =
+      await fetch(
+        GITHUB_API,
+        {
+          headers: {
+            "Accept":
+              "application/vnd.github+json"
+          }
         }
       );
 
 
-      container.appendChild(item);
+    if (!response.ok) {
 
-    };
+      throw new Error(
+        "GitHub API returned HTTP " +
+        response.status
+      );
+
+    }
 
 
-    image.onerror = function () {
-      /* File doesn't exist. That's fine. */
-    };
+    const files =
+      await response.json();
 
 
-    image.src =
-      prefix + number + ".png";
+    if (!Array.isArray(files)) {
+
+      throw new Error(
+        "GitHub returned an unexpected response."
+      );
+
+    }
+
+
+    const fanarts =
+      files
+        .filter(
+          file =>
+            file.type === "file" &&
+            /^fanart\d+\.png$/i.test(
+              file.name
+            )
+        )
+        .sort(
+          (a, b) =>
+            getImageNumber(a.name) -
+            getImageNumber(b.name)
+        );
+
+
+    const games =
+      files
+        .filter(
+          file =>
+            file.type === "file" &&
+            /^game\d+\.png$/i.test(
+              file.name
+            )
+        )
+        .sort(
+          (a, b) =>
+            getImageNumber(a.name) -
+            getImageNumber(b.name)
+        );
+
+
+    renderGallery(
+      fanartGallery,
+      fanarts,
+      "fanart"
+    );
+
+
+    renderGallery(
+      gameGallery,
+      games,
+      "game"
+    );
 
   }
 
+  catch (error) {
 
-  /*
-    Give the browser time to test the files.
-    If nothing was found, show a useful message.
-  */
+    console.error(
+      "GitHub image loading failed:",
+      error
+    );
 
-  setTimeout(
-    function () {
 
-      if (found === 0) {
+    fanartGallery.innerHTML =
+      `
+      <div class="gallery-message">
+        <strong>Couldn't load fanarts.</strong>
+        <br><br>
+        ${escapeHtml(error.message)}
+      </div>
+      `;
 
-        container.innerHTML =
-          '<div class="gallery-message">' +
-          'No ' +
-          prefix +
-          ' images found.<br><br>' +
-          'Add <strong>' +
-          prefix +
-          '1.png</strong>, ' +
-          '<strong>' +
-          prefix +
-          '2.png</strong>, ' +
-          '<strong>' +
-          prefix +
-          '3.png</strong>...' +
-          '</div>';
 
-      }
+    gameGallery.innerHTML =
+      `
+      <div class="gallery-message">
+        <strong>Couldn't load favourite games.</strong>
+        <br><br>
+        ${escapeHtml(error.message)}
+      </div>
+      `;
 
-    },
-    1500
-  );
+  }
 
 }
 
 
-findImages(
-  "fanart",
-  "fanartGallery"
-);
+function getImageNumber(
+  filename
+) {
+
+  const match =
+    filename.match(/\d+/);
+
+  return match
+    ? Number(match[0])
+    : Infinity;
+
+}
 
 
-findImages(
-  "game",
-  "gameGallery"
-);
+function renderGallery(
+  container,
+  files,
+  type
+) {
+
+  container.innerHTML = "";
+
+
+  if (files.length === 0) {
+
+    container.innerHTML =
+      `
+      <div class="gallery-message">
+        No ${type} images found.
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  for (
+    const file of files
+  ) {
+
+    const item =
+      document.createElement(
+        "figure"
+      );
+
+    item.className =
+      "gallery-item";
+
+
+    const img =
+      document.createElement(
+        "img"
+      );
+
+
+    img.src =
+      file.download_url ||
+      RAW_BASE +
+      encodeURIComponent(
+        file.name
+      );
+
+
+    img.alt =
+      file.name;
+
+
+    img.loading =
+      "lazy";
+
+
+    const caption =
+      document.createElement(
+        "figcaption"
+      );
+
+    caption.className =
+      "gallery-caption";
+
+
+    caption.textContent =
+      file.name;
+
+
+    item.appendChild(
+      img
+    );
+
+    item.appendChild(
+      caption
+    );
+
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        openViewer(
+          img.src,
+          file.name
+        );
+
+      }
+    );
+
+
+    container.appendChild(
+      item
+    );
+
+  }
+
+}
+
+
+function escapeHtml(
+  value
+) {
+
+  return String(value)
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* LOAD GITHUB FILES */
+
+loadRepositoryImages();
 
 
 /* ==========================================
@@ -1134,7 +1283,10 @@ const viewerTitle =
   );
 
 
-function openViewer(src, title) {
+function openViewer(
+  src,
+  title
+) {
 
   viewerImage.src =
     src;
@@ -1174,7 +1326,7 @@ document.getElementById(
 
 viewerOverlay.addEventListener(
   "click",
-  function (event) {
+  event => {
 
     if (
       event.target ===
@@ -1204,7 +1356,9 @@ const flappyCanvas =
   );
 
 const flappyCtx =
-  flappyCanvas.getContext("2d");
+  flappyCanvas.getContext(
+    "2d"
+  );
 
 
 const flappyImage =
@@ -1232,11 +1386,15 @@ let flappyHighscore =
 
 
 let flappyPlayer = {
+
   x: 130,
-  y: 230,
+  y: 220,
+
   width: 52,
   height: 52,
+
   velocity: 0
+
 };
 
 
@@ -1251,8 +1409,6 @@ document.getElementById(
   flappyHighscore;
 
 
-/* DRAW */
-
 function flappyBackground() {
 
   const gradient =
@@ -1263,19 +1419,22 @@ function flappyBackground() {
       500
     );
 
+
   gradient.addColorStop(
     0,
-    "#63c2ed"
+    "#5eb9e8"
   );
+
 
   gradient.addColorStop(
     1,
-    "#d9f5ff"
+    "#dff7ff"
   );
 
 
   flappyCtx.fillStyle =
     gradient;
+
 
   flappyCtx.fillRect(
     0,
@@ -1288,18 +1447,35 @@ function flappyBackground() {
   /* clouds */
 
   flappyCtx.fillStyle =
-    "rgba(255,255,255,.8)";
+    "rgba(255,255,255,.85)";
 
 
-  drawCloud(100, 90, 1);
-  drawCloud(500, 130, .8);
-  drawCloud(350, 55, .6);
+  drawCloud(
+    100,
+    90,
+    1
+  );
+
+
+  drawCloud(
+    500,
+    130,
+    .8
+  );
+
+
+  drawCloud(
+    350,
+    55,
+    .6
+  );
 
 
   /* ground */
 
   flappyCtx.fillStyle =
     "#72b94b";
+
 
   flappyCtx.fillRect(
     0,
@@ -1310,7 +1486,8 @@ function flappyBackground() {
 
 
   flappyCtx.fillStyle =
-    "#a2d96b";
+    "#a5db70";
+
 
   flappyCtx.fillRect(
     0,
@@ -1322,9 +1499,14 @@ function flappyBackground() {
 }
 
 
-function drawCloud(x, y, scale) {
+function drawCloud(
+  x,
+  y,
+  scale
+) {
 
   flappyCtx.beginPath();
+
 
   flappyCtx.arc(
     x,
@@ -1334,6 +1516,7 @@ function drawCloud(x, y, scale) {
     Math.PI * 2
   );
 
+
   flappyCtx.arc(
     x + 28 * scale,
     y - 10 * scale,
@@ -1341,6 +1524,7 @@ function drawCloud(x, y, scale) {
     0,
     Math.PI * 2
   );
+
 
   flappyCtx.arc(
     x + 58 * scale,
@@ -1350,6 +1534,7 @@ function drawCloud(x, y, scale) {
     Math.PI * 2
   );
 
+
   flappyCtx.fill();
 
 }
@@ -1358,72 +1543,78 @@ function drawCloud(x, y, scale) {
 function drawFlappyPlayer() {
 
   if (
-    !flappyImage.complete ||
-    !flappyImage.naturalWidth
+    flappyImage.complete &&
+    flappyImage.naturalWidth
   ) {
 
-    flappyCtx.fillStyle =
-      "#ffcc33";
+    flappyCtx.save();
 
-    flappyCtx.beginPath();
 
-    flappyCtx.arc(
+    flappyCtx.translate(
       flappyPlayer.x + 26,
-      flappyPlayer.y + 26,
-      24,
-      0,
-      Math.PI * 2
+      flappyPlayer.y + 26
     );
 
-    flappyCtx.fill();
+
+    flappyCtx.rotate(
+      Math.max(
+        -.4,
+        Math.min(
+          1,
+          flappyPlayer.velocity *
+          .05
+        )
+      )
+    );
+
+
+    flappyCtx.drawImage(
+      flappyImage,
+      -26,
+      -26,
+      52,
+      52
+    );
+
+
+    flappyCtx.restore();
 
     return;
 
   }
 
 
-  flappyCtx.save();
+  flappyCtx.fillStyle =
+    "#ffcc33";
 
 
-  flappyCtx.translate(
+  flappyCtx.beginPath();
+
+
+  flappyCtx.arc(
     flappyPlayer.x + 26,
-    flappyPlayer.y + 26
+    flappyPlayer.y + 26,
+    24,
+    0,
+    Math.PI * 2
   );
 
 
-  flappyCtx.rotate(
-    Math.max(
-      -.4,
-      Math.min(
-        1,
-        flappyPlayer.velocity * .05
-      )
-    )
-  );
-
-
-  flappyCtx.drawImage(
-    flappyImage,
-    -26,
-    -26,
-    52,
-    52
-  );
-
-
-  flappyCtx.restore();
+  flappyCtx.fill();
 
 }
 
 
-function makePipe() {
+function createPipe() {
 
-  const gap = 155;
+  const gap =
+    155;
+
 
   const top =
-    60 +
+    55 +
     Math.random() *
-    220;
+    230;
 
 
   flappyPipes.push({
@@ -1432,7 +1623,8 @@ function makePipe() {
 
     top: top,
 
-    bottom: top + gap,
+    bottom:
+      top + gap,
 
     passed: false
 
@@ -1441,13 +1633,13 @@ function makePipe() {
 }
 
 
-function drawPipe(pipe) {
+function drawPipe(
+  pipe
+) {
 
   flappyCtx.fillStyle =
-    "#4d9e3c";
+    "#4c9d3b";
 
-
-  /* top */
 
   flappyCtx.fillRect(
     pipe.x,
@@ -1465,13 +1657,12 @@ function drawPipe(pipe) {
   );
 
 
-  /* bottom */
-
   flappyCtx.fillRect(
     pipe.x,
     pipe.bottom,
     70,
-    455 - pipe.bottom
+    455 -
+    pipe.bottom
   );
 
 
@@ -1483,8 +1674,6 @@ function drawPipe(pipe) {
   );
 
 
-  /* highlight */
-
   flappyCtx.fillStyle =
     "#7bc765";
 
@@ -1492,57 +1681,57 @@ function drawPipe(pipe) {
   flappyCtx.fillRect(
     pipe.x + 8,
     0,
-    10,
+    9,
     pipe.top
   );
 
 }
 
 
-function pipeCollision(pipe) {
+function flappyCollision(
+  pipe
+) {
 
   const p =
     flappyPlayer;
+
 
   const padding =
     7;
 
 
-  const left =
-    p.x + padding;
-
-  const right =
-    p.x +
-    p.width -
-    padding;
-
-  const top =
-    p.y + padding;
-
-  const bottom =
-    p.y +
-    p.height -
-    padding;
-
-
   return (
-    right > pipe.x &&
-    left < pipe.x + 70 &&
+
+    p.x + p.width - padding >
+      pipe.x &&
+
+    p.x + padding <
+      pipe.x + 70 &&
+
     (
-      top < pipe.top ||
-      bottom > pipe.bottom
+
+      p.y + padding <
+        pipe.top ||
+
+      p.y + p.height -
+        padding >
+        pipe.bottom
+
     )
+
   );
 
 }
 
 
-function flappyStartScreen() {
+function drawFlappyStart() {
 
   flappyBackground();
 
+
   flappyCtx.fillStyle =
     "rgba(0,0,0,.35)";
+
 
   flappyCtx.fillRect(
     0,
@@ -1555,11 +1744,14 @@ function flappyStartScreen() {
   flappyCtx.textAlign =
     "center";
 
+
   flappyCtx.fillStyle =
     "white";
 
+
   flappyCtx.font =
     "bold 44px Segoe UI";
+
 
   flappyCtx.fillText(
     "FlappyDev",
@@ -1571,6 +1763,7 @@ function flappyStartScreen() {
   flappyCtx.font =
     "20px Segoe UI";
 
+
   flappyCtx.fillText(
     "Press Start to play",
     350,
@@ -1580,6 +1773,7 @@ function flappyStartScreen() {
 
   flappyCtx.font =
     "15px Segoe UI";
+
 
   flappyCtx.fillText(
     "SPACE / click / tap",
@@ -1592,21 +1786,28 @@ function flappyStartScreen() {
 
 function startFlappy() {
 
-  if (flappyRunning)
+  if (
+    flappyRunning
+  ) {
     return;
+  }
 
 
   flappyRunning =
     true;
 
+
   flappyScore =
     0;
+
 
   flappyPipes =
     [];
 
+
   flappyPlayer.y =
     220;
+
 
   flappyPlayer.velocity =
     0;
@@ -1618,7 +1819,8 @@ function startFlappy() {
     "0";
 
 
-  makePipe();
+  createPipe();
+
 
   lastPipeTime =
     performance.now();
@@ -1634,8 +1836,12 @@ function startFlappy() {
 
 function flap() {
 
-  if (!flappyRunning)
+  if (
+    !flappyRunning
+  ) {
     return;
+  }
+
 
   flappyPlayer.velocity =
     -7.5;
@@ -1643,14 +1849,20 @@ function flap() {
 }
 
 
-function flappyLoop(time) {
+function flappyLoop(
+  time
+) {
 
-  if (!flappyRunning)
+  if (
+    !flappyRunning
+  ) {
     return;
+  }
 
 
   flappyPlayer.velocity +=
     .42;
+
 
   flappyPlayer.y +=
     flappyPlayer.velocity;
@@ -1662,7 +1874,7 @@ function flappyLoop(time) {
     1650
   ) {
 
-    makePipe();
+    createPipe();
 
     lastPipeTime =
       time;
@@ -1685,6 +1897,7 @@ function flappyLoop(time) {
 
       pipe.passed =
         true;
+
 
       flappyScore++;
 
@@ -1713,7 +1926,7 @@ function flappyLoop(time) {
       455
   ) {
 
-    gameOverFlappy();
+    flappyGameOver();
 
     return;
 
@@ -1725,7 +1938,207 @@ function flappyLoop(time) {
   ) {
 
     if (
-      pipeCollision(pipe)
+      flappyCollision(pipe)
     ) {
 
-      game
+      flappyGameOver();
+
+      return;
+
+    }
+
+  }
+
+
+  flappyBackground();
+
+
+  flappyPipes.forEach(
+    drawPipe
+  );
+
+
+  drawFlappyPlayer();
+
+
+  flappyAnimation =
+    requestAnimationFrame(
+      flappyLoop
+    );
+
+}
+
+
+function flappyGameOver() {
+
+  flappyRunning =
+    false;
+
+
+  if (
+    flappyAnimation !== null
+  ) {
+
+    cancelAnimationFrame(
+      flappyAnimation
+    );
+
+  }
+
+
+  flappyAnimation =
+    null;
+
+
+  if (
+    flappyScore >
+    flappyHighscore
+  ) {
+
+    flappyHighscore =
+      flappyScore;
+
+
+    localStorage.setItem(
+      "devmatryca_flappy_highscore",
+      String(
+        flappyHighscore
+      )
+    );
+
+
+    document.getElementById(
+      "flappyHighscore"
+    ).textContent =
+      flappyHighscore;
+
+  }
+
+
+  flappyBackground();
+
+
+  flappyPipes.forEach(
+    drawPipe
+  );
+
+
+  drawFlappyPlayer();
+
+
+  flappyCtx.fillStyle =
+    "rgba(0,0,0,.4)";
+
+
+  flappyCtx.fillRect(
+    0,
+    0,
+    700,
+    500
+  );
+
+
+  flappyCtx.fillStyle =
+    "white";
+
+
+  flappyCtx.textAlign =
+    "center";
+
+
+  flappyCtx.font =
+    "bold 38px Segoe UI";
+
+
+  flappyCtx.fillText(
+    "Game Over",
+    350,
+    220
+  );
+
+
+  flappyCtx.font =
+    "18px Segoe UI";
+
+
+  flappyCtx.fillText(
+    "Press Restart",
+    350,
+    260
+  );
+
+}
+
+
+function stopFlappy() {
+
+  flappyRunning =
+    false;
+
+
+  if (
+    flappyAnimation !== null
+  ) {
+
+    cancelAnimationFrame(
+      flappyAnimation
+    );
+
+  }
+
+
+  flappyAnimation =
+    null;
+
+}
+
+
+/* FLAPPY EVENTS */
+
+document.getElementById(
+  "flappyButton"
+).addEventListener(
+  "click",
+  () => {
+
+    flappyOverlay.classList.add(
+      "open"
+    );
+
+    drawFlappyStart();
+
+  }
+);
+
+
+document.getElementById(
+  "closeFlappy"
+).addEventListener(
+  "click",
+  () => {
+
+    stopFlappy();
+
+    flappyOverlay.classList.remove(
+      "open"
+    );
+
+  }
+);
+
+
+document.getElementById(
+  "startFlappy"
+).addEventListener(
+  "click",
+  startFlappy
+);
+
+
+document.getElementById(
+  "restartFlappy"
+).addEventListener(
+  "click",
+  () => {
+
+    stopFl
