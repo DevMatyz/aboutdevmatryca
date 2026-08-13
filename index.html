@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>DevMatryca</title>
 
-  <!-- Windows 7 UI -->
   <link rel="stylesheet" href="https://unpkg.com/7.css">
 
   <style>
@@ -13,7 +13,8 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       min-height: 100%;
     }
@@ -34,13 +35,12 @@
         ),
         #4587bd;
 
-      background-size: cover;
       background-attachment: fixed;
     }
 
     .desktop {
       width: 100%;
-      max-width: 1050px;
+      max-width: 1100px;
       margin: auto;
     }
 
@@ -105,13 +105,100 @@
     }
 
     /* =========================
-       FLAPPYDEV
+       GAME BUTTONS
        ========================= */
 
-    .game-container {
+    .game-buttons-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(220px, 1fr)
+        );
+
+      gap: 12px;
+    }
+
+    .game-launcher {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      width: 100%;
+      min-height: 70px;
+
+      text-align: left;
+
+      cursor: pointer;
+    }
+
+    .game-launcher img {
+      width: 55px;
+      height: 55px;
+
+      object-fit: cover;
+
+      border-radius: 8px;
+
+      border: 1px solid #777;
+
+      background: #ddd;
+    }
+
+    .game-launcher-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .game-launcher-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .game-launcher-description {
+      margin-top: 3px;
+
+      font-size: 12px;
+
+      color: #555;
+    }
+
+    /* =========================
+       GAME WINDOWS
+       ========================= */
+
+    .game-window-overlay {
+      position: fixed;
+      inset: 0;
+
+      display: none;
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 15px;
+
+      background: rgba(0,0,0,.4);
+
+      z-index: 900;
+    }
+
+    .game-window-overlay.active {
+      display: flex;
+    }
+
+    .game-window {
+      width: min(800px, 96vw);
+      max-height: 95vh;
+    }
+
+    .game-window-body {
       display: flex;
       flex-direction: column;
       align-items: center;
+
+      padding: 10px;
     }
 
     .game-info {
@@ -120,88 +207,129 @@
 
       display: flex;
       justify-content: space-between;
-      align-items: center;
 
-      margin-bottom: 8px;
       padding: 6px 10px;
 
-      background: linear-gradient(#fff, #e9e9e9);
+      background:
+        linear-gradient(
+          #fff,
+          #e9e9e9
+        );
+
       border: 1px solid #aaa;
-      box-shadow: inset 0 1px white;
+
+      margin-bottom: 7px;
     }
 
-    .score {
-      font-size: 14px;
+    .game-info strong {
       font-weight: 600;
     }
 
-    .highscore {
-      font-size: 14px;
-    }
-
-    #gameCanvas {
+    canvas {
       display: block;
 
       width: 100%;
       max-width: 700px;
-      height: auto;
 
-      background: #75c5e8;
+      height: auto;
 
       border: 2px solid #555;
 
-      box-shadow:
-        0 3px 10px rgba(0,0,0,.35);
+      background: white;
 
       cursor: pointer;
 
-      image-rendering: auto;
+      box-shadow:
+        0 3px 10px rgba(0,0,0,.35);
     }
 
-    .game-buttons {
+    .game-controls {
       margin-top: 10px;
+
       display: flex;
-      gap: 8px;
+      gap: 7px;
     }
 
     .game-help {
-      margin-top: 8px;
+      margin-top: 7px;
+
       text-align: center;
+
       color: #555;
+
       font-size: 12px;
     }
 
-    /* Game over window */
-    .game-over {
-      display: none;
+    /* =========================
+       FANARTS
+       ========================= */
 
-      position: absolute;
+    .fanart-grid {
+      display: grid;
 
-      width: 260px;
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(190px, 1fr)
+        );
 
-      padding: 10px;
+      gap: 12px;
 
-      text-align: center;
+      align-items: start;
+    }
 
-      background: #eee;
+    .fanart {
+      position: relative;
 
-      border: 1px solid #777;
+      padding: 4px;
+
+      background: #f3f3f3;
+
+      border: 1px solid #999;
+
+      border-radius: 2px;
 
       box-shadow:
-        0 4px 15px rgba(0,0,0,.4);
+        0 1px 3px rgba(0,0,0,.3);
+
+      cursor: pointer;
+
+      transition:
+        transform .12s ease,
+        box-shadow .12s ease;
     }
 
-    .game-over.show {
+    .fanart:hover {
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 4px 10px rgba(0,0,0,.35);
+    }
+
+    .fanart img {
       display: block;
+
+      width: 100%;
+      height: auto;
+
+      border: 1px solid #aaa;
     }
 
-    .game-over h3 {
-      margin: 5px 0 10px;
-      font-size: 20px;
-    }
+    .fanart-label {
+      position: absolute;
 
-    .game-over p {
-      margin: 5px;
+      left: 7px;
+      bottom: 7px;
+
+      padding: 2px 6px;
+
+      color: white;
+
+      font-size: 11px;
+
+      background: rgba(0,0,0,.65);
+
+      border-radius: 2px;
     }
 
     /* =========================
@@ -338,8 +466,11 @@
 
     .footer {
       text-align: center;
+
       color: #444;
+
       padding: 10px;
+
       font-size: 12px;
     }
 
@@ -396,6 +527,7 @@
     }
 
     @media (max-width: 600px) {
+
       body {
         padding: 8px;
       }
@@ -414,7 +546,7 @@
         height: 110px;
       }
 
-      .games-grid {
+      .game-buttons-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -425,9 +557,9 @@
 
 <div class="desktop">
 
-  <!-- =========================
-       DEVMatryca WINDOW
-       ========================= -->
+  <!-- =================================
+       MAIN DEVMatryca WINDOW
+       ================================= -->
 
   <div class="window active main-window">
 
@@ -444,6 +576,7 @@
       </div>
 
     </div>
+
 
     <div class="window-body has-space">
 
@@ -490,62 +623,71 @@
       <div class="separator"></div>
 
 
-      <!-- =========================
-           FLAPPYDEV
-           ========================= -->
+      <!-- =================================
+           GAMES
+           ================================= -->
 
       <section class="section">
 
         <div class="section-title">
-          FlappyDev
+          Games
         </div>
 
-        <div class="game-container">
 
-          <div class="game-info">
+        <div class="game-buttons-grid">
 
-            <span class="score">
-              Score:
-              <span id="score">0</span>
+          <!-- FLAPPYDEV -->
+
+          <button
+            class="button game-launcher"
+            id="openFlappyDev"
+          >
+
+            <img
+              src="flappydev.png"
+              alt="FlappyDev"
+            >
+
+            <span class="game-launcher-text">
+
+              <span class="game-launcher-title">
+                FlappyDev
+              </span>
+
+              <span class="game-launcher-description">
+                Flap through the pipes!
+              </span>
+
             </span>
 
-            <span class="highscore">
-              Highscore:
-              <span id="highscore">0</span>
+          </button>
+
+
+          <!-- DEV SNAKE -->
+
+          <button
+            class="button game-launcher"
+            id="openDevSnake"
+          >
+
+            <img
+              src="flappydev.png"
+              alt="DevSnake"
+            >
+
+            <span class="game-launcher-text">
+
+              <span class="game-launcher-title">
+                DevSnake
+              </span>
+
+              <span class="game-launcher-description">
+                Eat apples and grow!
+              </span>
+
             </span>
 
-          </div>
-
-
-          <canvas
-            id="gameCanvas"
-            width="700"
-            height="500"
-          ></canvas>
-
-
-          <div class="game-buttons">
-
-            <button
-              class="button"
-              id="startButton"
-            >
-              Start Game
-            </button>
-
-            <button
-              class="button"
-              id="restartButton"
-            >
-              Restart
-            </button>
-
-          </div>
-
-
-          <div class="game-help">
-            Press SPACE, click, or tap the game to flap.
-          </div>
+          </button>
 
         </div>
 
@@ -555,15 +697,38 @@
       <div class="separator"></div>
 
 
-      <!-- =========================
-           FAVOURITE GAMES
-           ========================= -->
+      <!-- =================================
+           FANARTS
+           ================================= -->
+
+      <section class="section">
+
+        <div class="section-title">
+          Fanarts
+        </div>
+
+
+        <div
+          id="fanart-grid"
+          class="fanart-grid"
+        ></div>
+
+      </section>
+
+
+      <div class="separator"></div>
+
+
+      <!-- =================================
+           MY FAVOURITE GAMES
+           ================================= -->
 
       <section class="section">
 
         <div class="section-title">
           My Favourite Games
         </div>
+
 
         <div
           id="games-grid"
@@ -576,9 +741,9 @@
       <div class="separator"></div>
 
 
-      <!-- =========================
+      <!-- =================================
            THANKS
-           ========================= -->
+           ================================= -->
 
       <section class="section">
 
@@ -586,12 +751,14 @@
           Thank you to
         </div>
 
+
         <div class="thanks">
 
           <p>
             Thanks to everyone who helped, inspired,
             or contributed along the way.
           </p>
+
 
           <div class="names">
 
@@ -609,7 +776,9 @@
 
 
       <div class="footer">
+
         © <span id="year"></span> DevMatryca
+
       </div>
 
     </div>
@@ -619,16 +788,16 @@
 </div>
 
 
-<!-- =========================
-     GAME OVER WINDOW
-     ========================= -->
+<!-- =================================
+     FLAPPYDEV WINDOW
+     ================================= -->
 
 <div
-  id="gameOver"
-  class="viewer"
+  id="flappyWindow"
+  class="game-window-overlay"
 >
 
-  <div class="window active">
+  <div class="window active game-window">
 
     <div class="title-bar">
 
@@ -640,38 +809,59 @@
 
         <button
           aria-label="Close"
-          id="closeGameOver"
+          id="closeFlappy"
         ></button>
 
       </div>
 
     </div>
 
-    <div class="window-body has-space">
 
-      <h3 style="text-align:center;">
-        Game Over
-      </h3>
+    <div class="window-body game-window-body">
 
-      <p style="text-align:center;">
-        Score:
-        <strong id="finalScore">0</strong>
-      </p>
+      <div class="game-info">
 
-      <p style="text-align:center;">
-        Highscore:
-        <strong id="finalHighscore">0</strong>
-      </p>
+        <span>
+          Score:
+          <strong id="flappyScore">0</strong>
+        </span>
 
-      <div style="text-align:center; margin-top:15px;">
+        <span>
+          Highscore:
+          <strong id="flappyHighscore">0</strong>
+        </span>
+
+      </div>
+
+
+      <canvas
+        id="flappyCanvas"
+        width="700"
+        height="500"
+      ></canvas>
+
+
+      <div class="game-controls">
 
         <button
           class="button"
-          id="gameOverRestart"
+          id="startFlappy"
         >
-          Play Again
+          Start
         </button>
 
+        <button
+          class="button"
+          id="restartFlappy"
+        >
+          Restart
+        </button>
+
+      </div>
+
+
+      <div class="game-help">
+        SPACE / click / tap to flap
       </div>
 
     </div>
@@ -681,9 +871,92 @@
 </div>
 
 
-<!-- =========================
-     FAVOURITE GAME VIEWER
-     ========================= -->
+<!-- =================================
+     DEVSNAKE WINDOW
+     ================================= -->
+
+<div
+  id="snakeWindow"
+  class="game-window-overlay"
+>
+
+  <div class="window active game-window">
+
+    <div class="title-bar">
+
+      <div class="title-bar-text">
+        DevSnake
+      </div>
+
+      <div class="title-bar-controls">
+
+        <button
+          aria-label="Close"
+          id="closeSnake"
+        ></button>
+
+      </div>
+
+    </div>
+
+
+    <div class="window-body game-window-body">
+
+      <div class="game-info">
+
+        <span>
+          Score:
+          <strong id="snakeScore">0</strong>
+        </span>
+
+        <span>
+          Highscore:
+          <strong id="snakeHighscore">0</strong>
+        </span>
+
+      </div>
+
+
+      <canvas
+        id="snakeCanvas"
+        width="600"
+        height="600"
+      ></canvas>
+
+
+      <div class="game-controls">
+
+        <button
+          class="button"
+          id="startSnake"
+        >
+          Start
+        </button>
+
+        <button
+          class="button"
+          id="restartSnake"
+        >
+          Restart
+        </button>
+
+      </div>
+
+
+      <div class="game-help">
+        Arrow keys / WASD to move
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =================================
+     IMAGE VIEWER
+     ================================= -->
 
 <div
   id="viewer"
@@ -698,7 +971,7 @@
         id="viewerTitle"
         class="title-bar-text"
       >
-        Game
+        Image
       </div>
 
       <div class="title-bar-controls">
@@ -711,6 +984,7 @@
       </div>
 
     </div>
+
 
     <div class="window-body viewer-content">
 
@@ -729,1002 +1003,1672 @@
 
 <script>
 
-  /* =========================================
-     FLAPPYDEV
-     ========================================= */
+/* ==========================================
+   BASIC
+   ========================================== */
 
-  const canvas =
-    document.getElementById("gameCanvas");
-
-  const ctx =
-    canvas.getContext("2d");
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 
 
-  const playerImage =
-    new Image();
+/* ==========================================
+   WINDOW HELPERS
+   ========================================== */
 
-  playerImage.src =
-    "flappydev.png";
+const flappyWindow =
+  document.getElementById("flappyWindow");
 
-
-  let player = {
-    x: 130,
-    y: 240,
-    width: 48,
-    height: 48,
-    velocity: 0
-  };
+const snakeWindow =
+  document.getElementById("snakeWindow");
 
 
-  let pipes = [];
+document.getElementById("openFlappyDev")
+  .addEventListener("click", () => {
 
-  let score = 0;
+    flappyWindow.classList.add("active");
 
-  let highscore =
-    Number(
-      localStorage.getItem(
-        "devmatryca_flappydev_highscore"
-      )
-    ) || 0;
+    drawFlappyStartScreen();
+
+  });
 
 
-  let gameRunning = false;
+document.getElementById("openDevSnake")
+  .addEventListener("click", () => {
 
-  let gameStarted = false;
+    snakeWindow.classList.add("active");
 
-  let animationFrame;
+    drawSnakeStartScreen();
 
-
-  const gravity = 0.42;
-
-  const flapPower = -7.5;
-
-  const pipeWidth = 70;
-
-  const pipeGap = 155;
-
-  const pipeSpeed = 3;
+  });
 
 
-  document.getElementById(
-    "highscore"
-  ).textContent = highscore;
+document.getElementById("closeFlappy")
+  .addEventListener("click", () => {
+
+    flappyWindow.classList.remove("active");
+
+    stopFlappy();
+
+  });
 
 
-  /*
-   * Background
-   */
+document.getElementById("closeSnake")
+  .addEventListener("click", () => {
 
-  function drawBackground() {
+    snakeWindow.classList.remove("active");
 
-    const gradient =
-      ctx.createLinearGradient(
-        0,
-        0,
-        0,
-        canvas.height
-      );
+    stopSnake();
 
-    gradient.addColorStop(
+  });
+
+
+/* ==========================================
+   FLAPPYDEV
+   ========================================== */
+
+const flappyCanvas =
+  document.getElementById("flappyCanvas");
+
+const flappyCtx =
+  flappyCanvas.getContext("2d");
+
+
+const flappyImage =
+  new Image();
+
+flappyImage.src =
+  "flappydev.png";
+
+
+let flappyRunning = false;
+
+let flappyAnimation;
+
+let flappyScore = 0;
+
+let flappyHighscore =
+  Number(
+    localStorage.getItem(
+      "devmatryca_flappy_highscore"
+    )
+  ) || 0;
+
+
+let flappyPlayer = {
+  x: 130,
+  y: 240,
+  width: 48,
+  height: 48,
+  velocity: 0
+};
+
+
+let flappyPipes = [];
+
+let flappyLastPipe = 0;
+
+
+document.getElementById(
+  "flappyHighscore"
+).textContent =
+  flappyHighscore;
+
+
+function drawFlappyBackground() {
+
+  const gradient =
+    flappyCtx.createLinearGradient(
       0,
-      "#62b8e8"
-    );
-
-    gradient.addColorStop(
-      1,
-      "#c5edff"
-    );
-
-    ctx.fillStyle =
-      gradient;
-
-    ctx.fillRect(
       0,
       0,
-      canvas.width,
-      canvas.height
+      flappyCanvas.height
     );
 
+  gradient.addColorStop(
+    0,
+    "#63bce8"
+  );
 
-    /* Clouds */
+  gradient.addColorStop(
+    1,
+    "#d5f3ff"
+  );
 
-    ctx.fillStyle =
-      "rgba(255,255,255,.75)";
 
-    drawCloud(100, 80, 1);
-    drawCloud(480, 120, .8);
-    drawCloud(320, 40, .55);
+  flappyCtx.fillStyle =
+    gradient;
 
+  flappyCtx.fillRect(
+    0,
+    0,
+    flappyCanvas.width,
+    flappyCanvas.height
+  );
 
-    /* Ground */
 
-    ctx.fillStyle =
-      "#78b84c";
+  /* Clouds */
 
-    ctx.fillRect(
-      0,
-      canvas.height - 45,
-      canvas.width,
-      45
-    );
+  flappyCtx.fillStyle =
+    "rgba(255,255,255,.8)";
 
-    ctx.fillStyle =
-      "#9bce65";
 
-    ctx.fillRect(
-      0,
-      canvas.height - 45,
-      canvas.width,
-      7
-    );
+  [
+    [100, 80, 1],
+    [500, 115, .8],
+    [330, 45, .55]
+  ].forEach(
+    cloud => {
 
-  }
+      const [
+        x,
+        y,
+        scale
+      ] = cloud;
 
+      flappyCtx.beginPath();
 
-  function drawCloud(
-    x,
-    y,
-    scale
-  ) {
-
-    ctx.beginPath();
-
-    ctx.arc(
-      x,
-      y,
-      22 * scale,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.arc(
-      x + 25 * scale,
-      y - 10 * scale,
-      28 * scale,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.arc(
-      x + 55 * scale,
-      y,
-      22 * scale,
-      0,
-      Math.PI * 2
-    );
-
-    ctx.fill();
-
-  }
-
-
-  /*
-   * Pipes
-   */
-
-  function createPipe() {
-
-    const minTop = 60;
-
-    const maxTop =
-      canvas.height -
-      pipeGap -
-      100;
-
-    const top =
-      Math.random() *
-      (maxTop - minTop) +
-      minTop;
-
-
-    pipes.push({
-
-      x: canvas.width,
-
-      top: top,
-
-      bottom:
-        top + pipeGap,
-
-      passed: false
-
-    });
-
-  }
-
-
-  function drawPipe(pipe) {
-
-    const pipeGradient =
-      ctx.createLinearGradient(
-        pipe.x,
-        0,
-        pipe.x + pipeWidth,
-        0
-      );
-
-    pipeGradient.addColorStop(
-      0,
-      "#3e9b36"
-    );
-
-    pipeGradient.addColorStop(
-      .45,
-      "#83d05d"
-    );
-
-    pipeGradient.addColorStop(
-      1,
-      "#287d2d"
-    );
-
-
-    ctx.fillStyle =
-      pipeGradient;
-
-
-    /* Top pipe */
-
-    ctx.fillRect(
-      pipe.x,
-      0,
-      pipeWidth,
-      pipe.top
-    );
-
-
-    /* Top cap */
-
-    ctx.fillRect(
-      pipe.x - 5,
-      pipe.top - 18,
-      pipeWidth + 10,
-      18
-    );
-
-
-    /* Bottom pipe */
-
-    ctx.fillRect(
-      pipe.x,
-      pipe.bottom,
-      pipeWidth,
-      canvas.height -
-      pipe.bottom -
-      45
-    );
-
-
-    /* Bottom cap */
-
-    ctx.fillRect(
-      pipe.x - 5,
-      pipe.bottom,
-      pipeWidth + 10,
-      18
-    );
-
-  }
-
-
-  /*
-   * Player
-   */
-
-  function drawPlayer() {
-
-    ctx.save();
-
-    const angle =
-      Math.min(
-        Math.max(
-          player.velocity * .055,
-          -.35
-        ),
-        1
-      );
-
-    ctx.translate(
-      player.x + player.width / 2,
-      player.y + player.height / 2
-    );
-
-    ctx.rotate(angle);
-
-    if (
-      playerImage.complete &&
-      playerImage.naturalWidth > 0
-    ) {
-
-      ctx.drawImage(
-        playerImage,
-        -player.width / 2,
-        -player.height / 2,
-        player.width,
-        player.height
-      );
-
-    } else {
-
-      /* Fallback */
-
-      ctx.fillStyle =
-        "#ffcc00";
-
-      ctx.beginPath();
-
-      ctx.arc(
-        0,
-        0,
-        player.width / 2,
+      flappyCtx.arc(
+        x,
+        y,
+        22 * scale,
         0,
         Math.PI * 2
       );
 
-      ctx.fill();
+      flappyCtx.arc(
+        x + 25 * scale,
+        y - 10 * scale,
+        28 * scale,
+        0,
+        Math.PI * 2
+      );
+
+      flappyCtx.arc(
+        x + 55 * scale,
+        y,
+        22 * scale,
+        0,
+        Math.PI * 2
+      );
+
+      flappyCtx.fill();
 
     }
-
-    ctx.restore();
-
-  }
+  );
 
 
-  /*
-   * Collision
-   */
+  /* Ground */
 
-  function collision(pipe) {
+  flappyCtx.fillStyle =
+    "#73b94d";
 
-    const padding = 7;
-
-    const px =
-      player.x + padding;
-
-    const py =
-      player.y + padding;
-
-    const pw =
-      player.width -
-      padding * 2;
-
-    const ph =
-      player.height -
-      padding * 2;
+  flappyCtx.fillRect(
+    0,
+    flappyCanvas.height - 45,
+    flappyCanvas.width,
+    45
+  );
 
 
-    const hitPipeX =
-      px + pw >
-      pipe.x &&
-      px <
-      pipe.x + pipeWidth;
+  flappyCtx.fillStyle =
+    "#a0d46a";
+
+  flappyCtx.fillRect(
+    0,
+    flappyCanvas.height - 45,
+    flappyCanvas.width,
+    7
+  );
+
+}
 
 
-    const hitTop =
-      py <
-      pipe.top;
+function drawFlappyPlayer() {
+
+  flappyCtx.save();
+
+  flappyCtx.translate(
+    flappyPlayer.x +
+      flappyPlayer.width / 2,
+    flappyPlayer.y +
+      flappyPlayer.height / 2
+  );
 
 
-    const hitBottom =
-      py + ph >
-      pipe.bottom;
+  const angle =
+    Math.min(
+      Math.max(
+        flappyPlayer.velocity * .055,
+        -.35
+      ),
+      1
+    );
 
 
-    return (
-      hitPipeX &&
-      (hitTop || hitBottom)
+  flappyCtx.rotate(angle);
+
+
+  if (
+    flappyImage.complete &&
+    flappyImage.naturalWidth
+  ) {
+
+    flappyCtx.drawImage(
+      flappyImage,
+      -flappyPlayer.width / 2,
+      -flappyPlayer.height / 2,
+      flappyPlayer.width,
+      flappyPlayer.height
     );
 
   }
 
 
-  /*
-   * Start
-   */
+  flappyCtx.restore();
 
-  function startGame() {
-
-    if (gameRunning)
-      return;
+}
 
 
-    gameRunning = true;
+function createFlappyPipe() {
 
-    gameStarted = true;
+  const gap = 155;
 
-    score = 0;
+  const min =
+    60;
 
-    player.y = 240;
-
-    player.velocity = 0;
-
-    pipes = [];
-
-
-    document.getElementById(
-      "score"
-    ).textContent = "0";
+  const max =
+    flappyCanvas.height -
+    gap -
+    100;
 
 
-    createPipe();
-
-    lastPipeTime =
-      performance.now();
-
-
-    animationFrame =
-      requestAnimationFrame(
-        gameLoop
-      );
-
-  }
+  const top =
+    Math.random() *
+    (max - min) +
+    min;
 
 
-  /*
-   * Flap
-   */
+  flappyPipes.push({
 
-  function flap() {
+    x:
+      flappyCanvas.width,
 
-    if (!gameRunning) {
+    top,
 
-      startGame();
+    bottom:
+      top + gap,
 
-      return;
+    passed:
+      false
 
-    }
+  });
 
-    player.velocity =
-      flapPower;
-
-  }
+}
 
 
-  /*
-   * Game loop
-   */
+function drawFlappyPipe(pipe) {
 
-  let lastPipeTime = 0;
-
-
-  function gameLoop(timestamp) {
-
-    if (!gameRunning)
-      return;
+  flappyCtx.fillStyle =
+    "#4a9d39";
 
 
-    player.velocity +=
-      gravity;
-
-    player.y +=
-      player.velocity;
-
-
-    if (
-      timestamp -
-      lastPipeTime >
-      1700
-    ) {
-
-      createPipe();
-
-      lastPipeTime =
-        timestamp;
-
-    }
+  flappyCtx.fillRect(
+    pipe.x,
+    0,
+    70,
+    pipe.top
+  );
 
 
-    pipes.forEach(
-      pipe => {
+  flappyCtx.fillRect(
+    pipe.x - 5,
+    pipe.top - 18,
+    80,
+    18
+  );
 
-        pipe.x -=
-          pipeSpeed;
+
+  flappyCtx.fillRect(
+    pipe.x,
+    pipe.bottom,
+    70,
+    flappyCanvas.height -
+      pipe.bottom -
+      45
+  );
 
 
-        if (
-          !pipe.passed &&
-          pipe.x +
-          pipeWidth <
-          player.x
-        ) {
+  flappyCtx.fillRect(
+    pipe.x - 5,
+    pipe.bottom,
+    80,
+    18
+  );
 
-          pipe.passed = true;
 
-          score++;
+  flappyCtx.fillStyle =
+    "#7dca59";
 
-          document.getElementById(
-            "score"
-          ).textContent =
-            score;
 
-        }
+  flappyCtx.fillRect(
+    pipe.x + 8,
+    0,
+    12,
+    pipe.top
+  );
 
-      }
+}
+
+
+function flappyCollision(pipe) {
+
+  const p = flappyPlayer;
+
+  const padding = 7;
+
+  const x =
+    p.x + padding;
+
+  const y =
+    p.y + padding;
+
+  const w =
+    p.width - padding * 2;
+
+  const h =
+    p.height - padding * 2;
+
+
+  return (
+    x + w > pipe.x &&
+    x < pipe.x + 70 &&
+    (
+      y < pipe.top ||
+      y + h > pipe.bottom
+    )
+  );
+
+}
+
+
+function drawFlappyStartScreen() {
+
+  drawFlappyBackground();
+
+  flappyPlayer.y = 240;
+
+  flappyPlayer.velocity = 0;
+
+  flappyPipes = [];
+
+  drawFlappyPlayer();
+
+
+  flappyCtx.fillStyle =
+    "rgba(0,0,0,.35)";
+
+  flappyCtx.fillRect(
+    0,
+    0,
+    flappyCanvas.width,
+    flappyCanvas.height
+  );
+
+
+  flappyCtx.fillStyle =
+    "white";
+
+  flappyCtx.textAlign =
+    "center";
+
+  flappyCtx.font =
+    "bold 42px Segoe UI";
+
+  flappyCtx.fillText(
+    "FlappyDev",
+    flappyCanvas.width / 2,
+    190
+  );
+
+
+  flappyCtx.font =
+    "20px Segoe UI";
+
+  flappyCtx.fillText(
+    "Press Start to play",
+    flappyCanvas.width / 2,
+    235
+  );
+
+
+  flappyCtx.font =
+    "15px Segoe UI";
+
+  flappyCtx.fillText(
+    "SPACE / click / tap",
+    flappyCanvas.width / 2,
+    270
+  );
+
+}
+
+
+function startFlappy() {
+
+  if (flappyRunning)
+    return;
+
+
+  flappyRunning = true;
+
+  flappyScore = 0;
+
+  flappyPipes = [];
+
+  flappyPlayer.y = 240;
+
+  flappyPlayer.velocity = 0;
+
+
+  document.getElementById(
+    "flappyScore"
+  ).textContent = 0;
+
+
+  createFlappyPipe();
+
+
+  flappyLastPipe =
+    performance.now();
+
+
+  flappyAnimation =
+    requestAnimationFrame(
+      flappyLoop
     );
 
-
-    pipes =
-      pipes.filter(
-        pipe =>
-          pipe.x +
-          pipeWidth >
-          -20
-      );
+}
 
 
-    /*
-     * Collision with ground / sky
-     */
+function flap() {
 
-    if (
-      player.y < 0 ||
-      player.y +
-      player.height >
-      canvas.height - 45
-    ) {
-
-      endGame();
-
-      return;
-
-    }
+  if (!flappyRunning)
+    return;
 
 
-    for (
-      const pipe of pipes
-    ) {
+  flappyPlayer.velocity =
+    -7.5;
+
+}
+
+
+function flappyLoop(time) {
+
+  if (!flappyRunning)
+    return;
+
+
+  flappyPlayer.velocity +=
+    .42;
+
+  flappyPlayer.y +=
+    flappyPlayer.velocity;
+
+
+  if (
+    time -
+    flappyLastPipe >
+    1700
+  ) {
+
+    createFlappyPipe();
+
+    flappyLastPipe =
+      time;
+
+  }
+
+
+  flappyPipes.forEach(
+    pipe => {
+
+      pipe.x -= 3;
+
 
       if (
-        collision(pipe)
+        !pipe.passed &&
+        pipe.x + 70 <
+        flappyPlayer.x
       ) {
 
-        endGame();
+        pipe.passed = true;
 
-        return;
+        flappyScore++;
+
+
+        document.getElementById(
+          "flappyScore"
+        ).textContent =
+          flappyScore;
 
       }
 
     }
+  );
 
 
-    drawBackground();
-
-
-    pipes.forEach(
-      drawPipe
+  flappyPipes =
+    flappyPipes.filter(
+      pipe =>
+        pipe.x + 70 > -20
     );
 
 
-    drawPlayer();
+  if (
+    flappyPlayer.y < 0 ||
+    flappyPlayer.y +
+      flappyPlayer.height >
+      flappyCanvas.height - 45
+  ) {
 
+    stopFlappy();
 
-    animationFrame =
-      requestAnimationFrame(
-        gameLoop
-      );
+    return;
 
   }
 
 
-  /*
-   * End game
-   */
-
-  function endGame() {
-
-    gameRunning = false;
-
+  for (
+    const pipe of flappyPipes
+  ) {
 
     if (
-      score >
-      highscore
+      flappyCollision(pipe)
     ) {
 
-      highscore =
-        score;
+      stopFlappy();
 
-      localStorage.setItem(
-        "devmatryca_flappydev_highscore",
-        highscore
-      );
+      return;
 
     }
 
-
-    document.getElementById(
-      "highscore"
-    ).textContent =
-      highscore;
+  }
 
 
-    document.getElementById(
-      "finalScore"
-    ).textContent =
-      score;
+  drawFlappyBackground();
 
 
-    document.getElementById(
-      "finalHighscore"
-    ).textContent =
-      highscore;
+  flappyPipes.forEach(
+    drawFlappyPipe
+  );
 
 
-    document.getElementById(
-      "gameOver"
-    ).classList.add(
-      "active"
+  drawFlappyPlayer();
+
+
+  flappyAnimation =
+    requestAnimationFrame(
+      flappyLoop
+    );
+
+}
+
+
+function stopFlappy() {
+
+  if (
+    flappyAnimation
+  ) {
+
+    cancelAnimationFrame(
+      flappyAnimation
     );
 
   }
 
 
-  /*
-   * Restart
-   */
+  if (
+    flappyRunning &&
+    flappyScore >
+    flappyHighscore
+  ) {
 
-  function restartGame() {
+    flappyHighscore =
+      flappyScore;
 
-    document.getElementById(
-      "gameOver"
-    ).classList.remove(
-      "active"
+
+    localStorage.setItem(
+      "devmatryca_flappy_highscore",
+      flappyHighscore
     );
 
-    gameRunning = false;
 
-    startGame();
+    document.getElementById(
+      "flappyHighscore"
+    ).textContent =
+      flappyHighscore;
 
   }
 
 
-  document.getElementById(
-    "startButton"
-  ).addEventListener(
-    "click",
-    startGame
-  );
+  flappyRunning = false;
+
+}
 
 
-  document.getElementById(
-    "restartButton"
-  ).addEventListener(
-    "click",
-    restartGame
-  );
+document.getElementById(
+  "startFlappy"
+).addEventListener(
+  "click",
+  startFlappy
+);
 
 
-  document.getElementById(
-    "gameOverRestart"
-  ).addEventListener(
-    "click",
-    restartGame
-  );
+document.getElementById(
+  "restartFlappy"
+).addEventListener(
+  "click",
+  () => {
+
+    stopFlappy();
+
+    startFlappy();
+
+  }
+);
 
 
-  document.getElementById(
-    "closeGameOver"
-  ).addEventListener(
-    "click",
-    () => {
-
-      document.getElementById(
-        "gameOver"
-      ).classList.remove(
-        "active"
-      );
-
-    }
-  );
+flappyCanvas.addEventListener(
+  "click",
+  flap
+);
 
 
-  canvas.addEventListener(
-    "click",
-    flap
-  );
+document.addEventListener(
+  "keydown",
+  event => {
 
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.code === "Space"
-      ) {
-
-        event.preventDefault();
-
-        flap();
-
-      }
-
-    }
-  );
-
-
-  /*
-   * Touch controls
-   */
-
-  canvas.addEventListener(
-    "touchstart",
-    event => {
+    if (
+      event.code === "Space" &&
+      flappyWindow.classList.contains("active")
+    ) {
 
       event.preventDefault();
 
       flap();
 
-    },
-    {
-      passive: false
+    }
+
+  }
+);
+
+
+/* ==========================================
+   DEVSNAKE
+   ========================================== */
+
+const snakeCanvas =
+  document.getElementById("snakeCanvas");
+
+const snakeCtx =
+  snakeCanvas.getContext("2d");
+
+
+const snakeHeadImage =
+  new Image();
+
+snakeHeadImage.src =
+  "flappydev.png";
+
+
+const SNAKE_SIZE = 30;
+
+const SNAKE_COLUMNS =
+  snakeCanvas.width /
+  SNAKE_SIZE;
+
+const SNAKE_ROWS =
+  snakeCanvas.height /
+  SNAKE_SIZE;
+
+
+let snake = [];
+
+let apple = {};
+
+let snakeDirection = {
+  x: 1,
+  y: 0
+};
+
+let nextDirection = {
+  x: 1,
+  y: 0
+};
+
+let snakeRunning = false;
+
+let snakeTimer = null;
+
+let snakeScore = 0;
+
+let snakeHighscore =
+  Number(
+    localStorage.getItem(
+      "devmatryca_snake_highscore"
+    )
+  ) || 0;
+
+
+document.getElementById(
+  "snakeHighscore"
+).textContent =
+  snakeHighscore;
+
+
+function randomApple() {
+
+  let position;
+
+
+  do {
+
+    position = {
+
+      x:
+        Math.floor(
+          Math.random() *
+          SNAKE_COLUMNS
+        ),
+
+      y:
+        Math.floor(
+          Math.random() *
+          SNAKE_ROWS
+        )
+
+    };
+
+  } while (
+    snake.some(
+      part =>
+        part.x === position.x &&
+        part.y === position.y
+    )
+  );
+
+
+  apple =
+    position;
+
+}
+
+
+function drawSnakeBackground() {
+
+  snakeCtx.fillStyle =
+    "#dff0d0";
+
+  snakeCtx.fillRect(
+    0,
+    0,
+    snakeCanvas.width,
+    snakeCanvas.height
+  );
+
+
+  /* Grid */
+
+  snakeCtx.strokeStyle =
+    "rgba(0,0,0,.08)";
+
+  snakeCtx.lineWidth = 1;
+
+
+  for (
+    let x = 0;
+    x <= snakeCanvas.width;
+    x += SNAKE_SIZE
+  ) {
+
+    snakeCtx.beginPath();
+
+    snakeCtx.moveTo(
+      x,
+      0
+    );
+
+    snakeCtx.lineTo(
+      x,
+      snakeCanvas.height
+    );
+
+    snakeCtx.stroke();
+
+  }
+
+
+  for (
+    let y = 0;
+    y <= snakeCanvas.height;
+    y += SNAKE_SIZE
+  ) {
+
+    snakeCtx.beginPath();
+
+    snakeCtx.moveTo(
+      0,
+      y
+    );
+
+    snakeCtx.lineTo(
+      snakeCanvas.width,
+      y
+    );
+
+    snakeCtx.stroke();
+
+  }
+
+}
+
+
+function drawApple() {
+
+  const cx =
+    apple.x *
+      SNAKE_SIZE +
+    SNAKE_SIZE / 2;
+
+  const cy =
+    apple.y *
+      SNAKE_SIZE +
+    SNAKE_SIZE / 2;
+
+
+  /* Apple */
+
+  snakeCtx.fillStyle =
+    "#e53935";
+
+  snakeCtx.beginPath();
+
+  snakeCtx.arc(
+    cx,
+    cy + 2,
+    10,
+    0,
+    Math.PI * 2
+  );
+
+  snakeCtx.fill();
+
+
+  /* Apple leaf */
+
+  snakeCtx.fillStyle =
+    "#318b3b";
+
+  snakeCtx.beginPath();
+
+  snakeCtx.ellipse(
+    cx + 7,
+    cy - 10,
+    6,
+    3,
+    -.5,
+    0,
+    Math.PI * 2
+  );
+
+  snakeCtx.fill();
+
+}
+
+
+function drawSnake() {
+
+  snake.forEach(
+    (part, index) => {
+
+      const x =
+        part.x *
+        SNAKE_SIZE;
+
+      const y =
+        part.y *
+        SNAKE_SIZE;
+
+
+      if (
+        index === 0 &&
+        snakeHeadImage.complete &&
+        snakeHeadImage.naturalWidth
+      ) {
+
+        snakeCtx.drawImage(
+          snakeHeadImage,
+          x + 1,
+          y + 1,
+          SNAKE_SIZE - 2,
+          SNAKE_SIZE - 2
+        );
+
+      } else {
+
+        snakeCtx.fillStyle =
+          "#4c9f38";
+
+        snakeCtx.fillRect(
+          x + 2,
+          y + 2,
+          SNAKE_SIZE - 4,
+          SNAKE_SIZE - 4
+        );
+
+
+        snakeCtx.fillStyle =
+          "#72bd55";
+
+        snakeCtx.fillRect(
+          x + 5,
+          y + 5,
+          7,
+          7
+        );
+
+      }
+
     }
   );
+
+}
+
+
+function drawSnakeStartScreen() {
+
+  snakeCtx.fillStyle =
+    "#dff0d0";
+
+  snakeCtx.fillRect(
+    0,
+    0,
+    snakeCanvas.width,
+    snakeCanvas.height
+  );
+
+
+  snakeCtx.fillStyle =
+    "rgba(0,0,0,.35)";
+
+  snakeCtx.fillRect(
+    0,
+    0,
+    snakeCanvas.width,
+    snakeCanvas.height
+  );
+
+
+  snakeCtx.fillStyle =
+    "white";
+
+  snakeCtx.textAlign =
+    "center";
+
+  snakeCtx.font =
+    "bold 42px Segoe UI";
+
+  snakeCtx.fillText(
+    "DevSnake",
+    snakeCanvas.width / 2,
+    260
+  );
+
+
+  snakeCtx.font =
+    "20px Segoe UI";
+
+  snakeCtx.fillText(
+    "Press Start to play",
+    snakeCanvas.width / 2,
+    300
+  );
+
+}
+
+
+function startSnake() {
+
+  stopSnake();
+
+
+  snakeRunning = true;
+
+
+  snakeScore = 0;
+
+
+  snakeDirection = {
+    x: 1,
+    y: 0
+  };
+
+
+  nextDirection = {
+    x: 1,
+    y: 0
+  };
+
+
+  snake = [
+
+    {
+      x: 9,
+      y: 10
+    },
+
+    {
+      x: 8,
+      y: 10
+    },
+
+    {
+      x: 7,
+      y: 10
+    }
+
+  ];
+
+
+  randomApple();
+
+
+  document.getElementById(
+    "snakeScore"
+  ).textContent =
+    0;
+
+
+  drawSnakeGame();
+
+
+  snakeTimer =
+    setInterval(
+      snakeTick,
+      115
+    );
+
+}
+
+
+function snakeTick() {
+
+  if (!snakeRunning)
+    return;
+
+
+  snakeDirection =
+    nextDirection;
+
+
+  const head =
+    snake[0];
+
+
+  const newHead = {
+
+    x:
+      head.x +
+      snakeDirection.x,
+
+    y:
+      head.y +
+      snakeDirection.y
+
+  };
+
+
+  /* Wall collision */
+
+  if (
+    newHead.x < 0 ||
+    newHead.x >= SNAKE_COLUMNS ||
+    newHead.y < 0 ||
+    newHead.y >= SNAKE_ROWS
+  ) {
+
+    stopSnake();
+
+    return;
+
+  }
+
+
+  /* Self collision */
+
+  if (
+    snake.some(
+      part =>
+        part.x === newHead.x &&
+        part.y === newHead.y
+    )
+  ) {
+
+    stopSnake();
+
+    return;
+
+  }
+
+
+  snake.unshift(
+    newHead
+  );
+
+
+  /* Apple */
+
+  if (
+    newHead.x === apple.x &&
+    newHead.y === apple.y
+  ) {
+
+    snakeScore++;
+
+
+    document.getElementById(
+      "snakeScore"
+    ).textContent =
+      snakeScore;
+
+
+    randomApple();
+
+  } else {
+
+    snake.pop();
+
+  }
+
+
+  drawSnakeGame();
+
+}
+
+
+function drawSnakeGame() {
+
+  drawSnakeBackground();
+
+  drawApple();
+
+  drawSnake();
+
+}
+
+
+function stopSnake() {
+
+  if (
+    snakeTimer
+  ) {
+
+    clearInterval(
+      snakeTimer
+    );
+
+    snakeTimer = null;
+
+  }
+
+
+  if (
+    snakeRunning &&
+    snakeScore >
+    snakeHighscore
+  ) {
+
+    snakeHighscore =
+      snakeScore;
+
+
+    localStorage.setItem(
+      "devmatryca_snake_highscore",
+      snakeHighscore
+    );
+
+
+    document.getElementById(
+      "snakeHighscore"
+    ).textContent =
+      snakeHighscore;
+
+  }
+
+
+  snakeRunning = false;
+
+}
+
+
+function changeSnakeDirection(
+  x,
+  y
+) {
+
+  if (!snakeRunning)
+    return;
 
 
   /*
-   * Draw initial screen
+   * Prevent immediately
+   * reversing into yourself.
    */
 
-  drawBackground();
-
-  drawPlayer();
-
-
-  /* =========================================
-     MY FAVOURITE GAMES
-     ========================================= */
-
-  const gamesGrid =
-    document.getElementById(
-      "games-grid"
-    );
-
-
-  const MAX_GAMES = 100;
-
-  let foundGames = 0;
-
-
-  function loadGameImage(number) {
-
-    return new Promise(resolve => {
-
-      const src =
-        `game${number}.png`;
-
-      const image =
-        new Image();
-
-
-      image.onload = () => {
-
-        const card =
-          document.createElement("div");
-
-        card.className =
-          "game-card";
-
-
-        const img =
-          document.createElement("img");
-
-        img.src =
-          src;
-
-        img.alt =
-          `Favourite game ${number}`;
-
-        img.loading =
-          "lazy";
-
-
-        const label =
-          document.createElement("span");
-
-        label.className =
-          "game-label";
-
-        label.textContent =
-          `game${number}.png`;
-
-
-        card.appendChild(img);
-
-        card.appendChild(label);
-
-
-        card.addEventListener(
-          "click",
-          () => {
-
-            openGameViewer(
-              src,
-              `Favourite Game ${number}`
-            );
-
-          }
-        );
-
-
-        gamesGrid.appendChild(
-          card
-        );
-
-
-        foundGames++;
-
-        resolve(true);
-
-      };
-
-
-      image.onerror = () => {
-
-        resolve(false);
-
-      };
-
-
-      image.src =
-        src;
-
-    });
-
-  }
-
-
-  async function loadFavouriteGames() {
-
-    const jobs = [];
-
-
-    for (
-      let i = 1;
-      i <= MAX_GAMES;
-      i++
-    ) {
-
-      jobs.push(
-        loadGameImage(i)
-      );
-
-    }
-
-
-    await Promise.all(
-      jobs
-    );
-
-
-    if (
-      foundGames === 0
-    ) {
-
-      gamesGrid.innerHTML = `
-        <div class="empty">
-          No favourite games found.<br><br>
-
-          Add images named
-          <strong>game1.png</strong>,
-          <strong>game2.png</strong>,
-          <strong>game3.png</strong>...
-        </div>
-      `;
-
-    }
-
-  }
-
-
-  /* =========================================
-     GAME IMAGE VIEWER
-     ========================================= */
-
-  const viewer =
-    document.getElementById(
-      "viewer"
-    );
-
-  const viewerImage =
-    document.getElementById(
-      "viewerImage"
-    );
-
-  const viewerTitle =
-    document.getElementById(
-      "viewerTitle"
-    );
-
-
-  function openGameViewer(
-    src,
-    title
+  if (
+    x === -snakeDirection.x &&
+    y === -snakeDirection.y
   ) {
 
-    viewerImage.src =
-      src;
+    return;
 
-    viewerImage.alt =
-      title;
+  }
 
-    viewerTitle.textContent =
-      title;
 
-    viewer.classList.add(
-      "active"
+  nextDirection = {
+    x,
+    y
+  };
+
+}
+
+
+document.getElementById(
+  "startSnake"
+).addEventListener(
+  "click",
+  startSnake
+);
+
+
+document.getElementById(
+  "restartSnake"
+).addEventListener(
+  "click",
+  startSnake
+);
+
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      !snakeWindow.classList.contains(
+        "active"
+      )
+    ) {
+
+      return;
+
+    }
+
+
+    switch (
+      event.key.toLowerCase()
+    ) {
+
+      case "arrowup":
+      case "w":
+
+        event.preventDefault();
+
+        changeSnakeDirection(
+          0,
+          -1
+        );
+
+        break;
+
+
+      case "arrowdown":
+      case "s":
+
+        event.preventDefault();
+
+        changeSnakeDirection(
+          0,
+          1
+        );
+
+        break;
+
+
+      case "arrowleft":
+      case "a":
+
+        event.preventDefault();
+
+        changeSnakeDirection(
+          -1,
+          0
+        );
+
+        break;
+
+
+      case "arrowright":
+      case "d":
+
+        event.preventDefault();
+
+        changeSnakeDirection(
+          1,
+          0
+        );
+
+        break;
+
+    }
+
+  });
+
+
+/* ==========================================
+   INITIAL GAME SCREENS
+   ========================================== */
+
+drawFlappyStartScreen();
+
+drawSnakeStartScreen();
+
+
+/* ==========================================
+   FANART AUTO LOADER
+   ========================================== */
+
+const fanartGrid =
+  document.getElementById(
+    "fanart-grid"
+  );
+
+
+async function loadFanarts() {
+
+  let found = 0;
+
+
+  for (
+    let i = 1;
+    i <= 100;
+    i++
+  ) {
+
+    await new Promise(
+      resolve => {
+
+        const image =
+          new Image();
+
+
+        image.onload = () => {
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+          card.className =
+            "fanart";
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+          img.src =
+            `fanart${i}.png`;
+
+          img.alt =
+            `Fanart ${i}`;
+
+          img.loading =
+            "lazy";
+
+
+          const label =
+            document.createElement(
+              "span"
+            );
+
+          label.className =
+            "fanart-label";
+
+          label.textContent =
+            `fanart${i}.png`;
+
+
+          card.appendChild(img);
+
+          card.appendChild(label);
+
+
+          card.addEventListener(
+            "click",
+            () => {
+
+              openViewer(
+                img.src,
+                `Fanart ${i}`
+              );
+
+            }
+          );
+
+
+          fanartGrid.appendChild(
+            card
+          );
+
+
+          found++;
+
+          resolve();
+
+        };
+
+
+        image.onerror = () => {
+
+          resolve();
+
+        };
+
+
+        image.src =
+          `fanart${i}.png`;
+
+      }
     );
 
   }
 
 
-  function closeGameViewer() {
+  if (
+    found === 0
+  ) {
 
-    viewer.classList.remove(
-      "active"
+    fanartGrid.innerHTML = `
+      <div class="empty">
+        No fanarts found.<br><br>
+        Add <strong>fanart1.png</strong>,
+        <strong>fanart2.png</strong>,
+        <strong>fanart3.png</strong>...
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* ==========================================
+   FAVOURITE GAMES AUTO LOADER
+   ========================================== */
+
+const gamesGrid =
+  document.getElementById(
+    "games-grid"
+  );
+
+
+async function loadFavouriteGames() {
+
+  let found = 0;
+
+
+  for (
+    let i = 1;
+    i <= 100;
+    i++
+  ) {
+
+    await new Promise(
+      resolve => {
+
+        const image =
+          new Image();
+
+
+        image.onload = () => {
+
+          const card =
+            document.createElement(
+              "div"
+            );
+
+          card.className =
+            "game-card";
+
+
+          const img =
+            document.createElement(
+              "img"
+            );
+
+          img.src =
+            `game${i}.png`;
+
+          img.alt =
+            `Favourite game ${i}`;
+
+          img.loading =
+            "lazy";
+
+
+          const label =
+            document.createElement(
+              "span"
+            );
+
+          label.className =
+            "game-label";
+
+          label.textContent =
+            `game${i}.png`;
+
+
+          card.appendChild(img);
+
+          card.appendChild(label);
+
+
+          card.addEventListener(
+            "click",
+            () => {
+
+              openViewer(
+                img.src,
+                `Favourite Game ${i}`
+              );
+
+            }
+          );
+
+
+          gamesGrid.appendChild(
+            card
+          );
+
+
+          found++;
+
+          resolve();
+
+        };
+
+
+        image.onerror = () => {
+
+          resolve();
+
+        };
+
+
+        image.src =
+          `game${i}.png`;
+
+      }
     );
-
-    viewerImage.src =
-      "";
 
   }
 
 
+  if (
+    found === 0
+  ) {
+
+    gamesGrid.innerHTML = `
+      <div class="empty">
+        No favourite games found.<br><br>
+        Add <strong>game1.png</strong>,
+        <strong>game2.png</strong>,
+        <strong>game3.png</strong>...
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* ==========================================
+   IMAGE VIEWER
+   ========================================== */
+
+const viewer =
   document.getElementById(
-    "viewerClose"
-  ).addEventListener(
-    "click",
-    closeGameViewer
+    "viewer"
   );
 
-
-  viewer.addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target === viewer
-      ) {
-
-        closeGameViewer();
-
-      }
-
-    }
-  );
-
-
-  document.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key === "Escape"
-      ) {
-
-        closeGameViewer();
-
-      }
-
-    }
-  );
-
-
-  /* =========================================
-     YEAR
-     ========================================= */
-
+const viewerImage =
   document.getElementById(
-    "year"
-  ).textContent =
-    new Date().getFullYear();
+    "viewerImage"
+  );
+
+const viewerTitle =
+  document.getElementById(
+    "viewerTitle"
+  );
 
 
-  /* =========================================
-     LOAD EVERYTHING
-     ========================================= */
+function openViewer(
+  src,
+  title
+) {
 
-  loadFavouriteGames();
+  viewerImage.src =
+    src;
 
-</script>
-
-</body>
-</html>
+  viewerImage.alt
